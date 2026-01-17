@@ -114,11 +114,6 @@ A cross-platform web-based GUI tool for configuring and running vLLM inference s
 git clone https://github.com/wuwenthink/VLLM-GUI.git
 cd VLLM-GUI
 
-# 创建虚拟环境 | Create virtual environment
-python -m venv venv
-.\venv\Scripts\activate  # Windows
-# source venv/bin/activate  # Linux
-
 # 安装依赖 | Install dependencies
 pip install -r requirements.txt
 ```
@@ -131,7 +126,9 @@ pip install -r requirements.txt
 
 **Windows（使用批处理脚本 | using batch script）：**
 ```batch
-.\启动服务.bat
+.\启动服务.bat   .\start.bat
+
+.\启动服务.sh   .\start.sh
 ```
 
 **命令行 | Command line：**
