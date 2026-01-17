@@ -1455,7 +1455,7 @@
             align-items: center;
             gap: 10px;
             color: #e6edf3;
-            font-size: 1em;
+            font-size: 1.2em;
             font-weight: 700;
             margin-bottom: 14px;
             padding-bottom: 12px;
@@ -1477,13 +1477,13 @@
         .gpu-item {
             background: rgba(0, 0, 0, 0.3);
             border-radius: 10px;
-            padding: 14px;
+            padding: 16px;
             display: grid;
-            grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
-            gap: 12px;
+            grid-template-columns: 1.8fr 1.2fr 1fr 1fr 1fr;
+            gap: 16px;
             align-items: center;
             font-family: 'Consolas', 'Monaco', monospace;
-            font-size: 0.8em;
+            font-size: 1em;
             transition: all 0.3s ease;
         }
 
@@ -1497,7 +1497,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            font-size: 0.85em;
+            font-size: 1em;
         }
 
         .gpu-name i {
@@ -1521,6 +1521,11 @@
 
         .gpu-power {
             color: #a855f7;
+            text-align: center;
+        }
+
+        .gpu-fan {
+            color: #22c55e;
             text-align: center;
         }
         
@@ -1560,7 +1565,7 @@
         }
         
         .gpu-progress-label {
-            font-size: 0.7em;
+            font-size: 0.85em;
             color: #8b949e;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -1569,7 +1574,7 @@
 
         .gpu-label {
             color: #8b949e;
-            font-size: 0.75em;
+            font-size: 0.9em;
             display: block;
             margin-bottom: 2px;
         }
@@ -2800,6 +2805,12 @@
 
         .gpu-power {
             color: #a855f7;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .gpu-fan {
+            color: #22c55e;
             text-align: center;
             font-weight: 500;
         }
@@ -5101,11 +5112,27 @@
             let currentCondaPath = '';  // Initialize with default value
             let customParams = [];
             let currentScheme = null;
-            let schemes = JSON.parse(localStorage.getItem('vllm_schemes') || '[]');
+            let schemes = [];
             let process = null;
             let isRunning = false;
             let socket = null;
             let saveSchemeTab = 'new';
+            
+            // Initialize schemes from server
+            (async function loadSchemesFromServer() {
+                try {
+                    const response = await fetch('/api/schemes');
+                    if (response.ok) {
+                        const data = await response.json();
+                        schemes = data.schemes || [];
+                        updateSchemeList();
+                        console.log(`Loaded ${schemes.length} schemes from server`);
+                    }
+                } catch (e) {
+                    console.log('Could not load schemes from server:', e);
+                    schemes = [];
+                }
+            })();
         
         // Initialize environment and conda detection
         (async function initEnvironment() {
@@ -6031,7 +6058,7 @@ ${vllmArgs.replace('python -m', '$PYTHON_PATH -m')}
             if (tabContent) tabContent.classList.add('active');
         };
 
-        const confirmSaveScheme = () => {
+        const confirmSaveScheme = async () => {
             const activeTab = document.querySelector('.dialog-tab.active').dataset.tab;
 
             if (activeTab === 'new') {
@@ -6046,38 +6073,41 @@ ${vllmArgs.replace('python -m', '$PYTHON_PATH -m')}
                 const config = getConfig();
                 config.envType = currentEnv;
 
-                // Check if name already exists
-                const existingIndex = schemes.findIndex(s => s.name === name);
-
-                if (existingIndex !== -1) {
-                    // Update existing scheme
-                    schemes[existingIndex] = {
-                        id: schemes[existingIndex].id,
-                        name: name,
-                        config: config,
-                        description: desc,
-                        createdAt: new Date().toISOString(),
-                        envType: currentEnv
-                    };
-                    showToast(`方案 "${name}" 已覆盖`, 'success');
-                    log(`配置方案 "${name}" 已覆盖`, 'success');
-                } else {
-                    // Create new scheme
-                    schemes.push({
-                        id: Date.now(),
-                        name: name,
-                        config: config,
-                        description: desc,
-                        createdAt: new Date().toISOString(),
-                        envType: currentEnv
+                try {
+                    const response = await fetch('/api/schemes', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            scheme: {
+                                name: name,
+                                config: config,
+                                envType: currentEnv
+                            }
+                        })
                     });
-                    showToast(`方案 "${name}" 已保存`, 'success');
-                    log(`配置方案 "${name}" 已保存`, 'success');
+                    
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        // Update local schemes list
+                        const existingIndex = schemes.findIndex(s => s.name === name);
+                        if (existingIndex !== -1) {
+                            schemes[existingIndex] = result.scheme;
+                            showToast(`方案 "${name}" 已覆盖`, 'success');
+                            log(`配置方案 "${name}" 已覆盖`, 'success');
+                        } else {
+                            schemes.push(result.scheme);
+                            showToast(`方案 "${name}" 已保存`, 'success');
+                            log(`配置方案 "${name}" 已保存`, 'success');
+                        }
+                        updateSchemeList();
+                        closeSaveSchemeDialog();
+                    } else {
+                        showToast(result.message || '保存失败', 'error');
+                    }
+                } catch (e) {
+                    showToast('保存失败: ' + e.message, 'error');
                 }
-
-                localStorage.setItem('vllm_schemes', JSON.stringify(schemes));
-                updateSchemeList();
-                closeSaveSchemeDialog();
 
             } else {
                 // Overwrite existing scheme
@@ -6103,7 +6133,6 @@ ${vllmArgs.replace('python -m', '$PYTHON_PATH -m')}
                     envType: currentEnv
                 };
 
-                localStorage.setItem('vllm_schemes', JSON.stringify(schemes));
                 updateSchemeList();
                 showToast(`方案 "${schemes[schemeIndex].name}" 已更新`, 'success');
                 log(`配置方案 "${schemes[schemeIndex].name}" 已更新`, 'success');
@@ -6210,36 +6239,72 @@ ${vllmArgs.replace('python -m', '$PYTHON_PATH -m')}
             }
         };
 
-        const editScheme = (id) => {
+        const editScheme = async (id) => {
             const scheme = schemes.find(s => s.id === id);
             if (scheme) {
                 const newName = prompt('请输入新方案名称:', scheme.name);
                 if (newName && newName.trim()) {
                     const oldName = scheme.name;
                     scheme.name = newName.trim();
-                    localStorage.setItem('vllm_schemes', JSON.stringify(schemes));
-                    updateSchemeList();
-                    if (currentScheme && currentScheme.id === id) {
-                        document.getElementById('schemeSelectText').innerHTML = `<i class="fas fa-check-circle"></i> ${scheme.name}`;
+                    
+                    try {
+                        const response = await fetch('/api/schemes', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                scheme: {
+                                    name: scheme.name,
+                                    config: scheme.config,
+                                    envType: scheme.envType
+                                }
+                            })
+                        });
+                        
+                        const result = await response.json();
+                        
+                        if (result.success) {
+                            updateSchemeList();
+                            if (currentScheme && currentScheme.id === id) {
+                                document.getElementById('schemeSelectText').innerHTML = `<i class="fas fa-check-circle"></i> ${scheme.name}`;
+                            }
+                            showToast(`方案已从 "${oldName}" 重命名为 "${scheme.name}"`, 'success');
+                            log(`方案 "${oldName}" 已重命名为 "${scheme.name}"`, 'success');
+                        } else {
+                            // Revert name on failure
+                            scheme.name = oldName;
+                            showToast(result.message || '重命名失败', 'error');
+                        }
+                    } catch (e) {
+                        // Revert name on error
+                        scheme.name = oldName;
+                        showToast('重命名失败: ' + e.message, 'error');
                     }
-                    showToast(`方案已从 "${oldName}" 重命名为 "${scheme.name}"`, 'success');
-                    log(`方案 "${oldName}" 已重命名为 "${scheme.name}"`, 'success');
                 }
             }
         };
 
-        const deleteScheme = (id) => {
+        const deleteScheme = async (id) => {
             const scheme = schemes.find(s => s.id === id);
             if (scheme && confirm(`确定要删除方案 "${scheme.name}" 吗?`)) {
-                schemes = schemes.filter(s => s.id !== id);
-                localStorage.setItem('vllm_schemes', JSON.stringify(schemes));
-                updateSchemeList();
-                if (currentScheme && currentScheme.id === id) {
-                    document.getElementById('schemeSelectText').innerHTML = `选择配置方案...`;
-                    currentScheme = null;
+                try {
+                    const response = await fetch(`/api/schemes/${id}`, { method: 'DELETE' });
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        schemes = schemes.filter(s => s.id !== id);
+                        updateSchemeList();
+                        if (currentScheme && currentScheme.id === id) {
+                            document.getElementById('schemeSelectText').innerHTML = `选择配置方案...`;
+                            currentScheme = null;
+                        }
+                        showToast(`方案 "${scheme.name}" 已删除`, 'info');
+                        log(`配置方案 "${scheme.name}" 已删除`, 'warning');
+                    } else {
+                        showToast(result.message || '删除失败', 'error');
+                    }
+                } catch (e) {
+                    showToast('删除失败: ' + e.message, 'error');
                 }
-                showToast(`方案 "${scheme.name}" 已删除`, 'info');
-                log(`配置方案 "${scheme.name}" 已删除`, 'warning');
             }
         };
 
@@ -6316,6 +6381,10 @@ ${vllmArgs.replace('python -m', '$PYTHON_PATH -m')}
                             <div class="gpu-power">
                                 <span class="gpu-label">功耗</span>
                                 ${gpu.power}W
+                            </div>
+                            <div class="gpu-fan">
+                                <span class="gpu-label">风扇</span>
+                                ${gpu.fan_speed || 0}%
                             </div>
                         </div>
                         `;

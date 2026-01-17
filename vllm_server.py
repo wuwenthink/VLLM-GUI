@@ -26,7 +26,9 @@ IS_LINUX = platform.system() == "Linux"
 IS_WINDOWS = platform.system() == "Windows"
 
 LOGS_FILE = "logs.txt"
+SCHEMES_FILE = "vllm_schemes.json"
 logs_lock = threading.Lock()
+schemes_lock = threading.Lock()
 
 
 class Logger:
@@ -1012,7 +1014,7 @@ def api_clear_logs():
 def api_gpu_status():
     try:
         result = subprocess.run(
-            ["nvidia-smi", "--query-gpu=name,memory.used,memory.total,utilization.gpu,temperature.gpu,power.draw",
+            ["nvidia-smi", "--query-gpu=name,memory.used,memory.total,utilization.gpu,temperature.gpu,power.draw,fan.speed",
              "--format=csv,noheader,nounits"],
             capture_output=True,
             text=True,
@@ -1025,14 +1027,15 @@ def api_gpu_status():
             for line in result.stdout.strip().split("\n"):
                 if line:
                     parts = [p.strip() for p in line.split(",")]
-                    if len(parts) >= 6:
+                    if len(parts) >= 7:
                         gpus.append({
                             "name": parts[0],
                             "memory_used": parts[1],
                             "memory_total": parts[2],
                             "utilization": parts[3],
                             "temperature": parts[4],
-                            "power": parts[5]
+                            "power": parts[5],
+                            "fan_speed": parts[6]
                         })
             return jsonify({"status": "ok", "gpus": gpus})
         else:
@@ -1157,6 +1160,98 @@ def handle_send_input(data):
     cmd = data.get("command", "")
     if cmd and vllm_controller.process:
         vllm_controller.send_command(cmd)
+
+
+@app.route("/api/schemes", methods=["GET"])
+def api_get_schemes():
+    """Get all saved schemes from file"""
+    try:
+        with schemes_lock:
+            if os.path.exists(SCHEMES_FILE):
+                with open(SCHEMES_FILE, "r", encoding="utf-8") as f:
+                    schemes = json.load(f)
+                return jsonify({"success": True, "schemes": schemes})
+            else:
+                return jsonify({"success": True, "schemes": []})
+    except Exception as e:
+        logger.log("error", f"Failed to get schemes: {str(e)}")
+        return jsonify({"success": False, "message": str(e)})
+
+
+@app.route("/api/schemes", methods=["POST"])
+def api_save_scheme():
+    """Save a new scheme or update existing one"""
+    try:
+        data = request.json
+        scheme_data = data.get("scheme", {})
+        name = scheme_data.get("name", "")
+        config = scheme_data.get("config", {})
+        env_type = scheme_data.get("envType", "wsl")
+        
+        if not name:
+            return jsonify({"success": False, "message": "方案名称不能为空"}), 400
+        
+        with schemes_lock:
+            schemes = []
+            if os.path.exists(SCHEMES_FILE):
+                with open(SCHEMES_FILE, "r", encoding="utf-8") as f:
+                    schemes = json.load(f)
+            
+            existing_index = -1
+            for i, s in enumerate(schemes):
+                if s.get("name") == name:
+                    existing_index = i
+                    break
+            
+            scheme_entry = {
+                "id": int(datetime.now().timestamp() * 1000) if existing_index == -1 else schemes[existing_index]["id"],
+                "name": name,
+                "config": config,
+                "envType": env_type,
+                "createdAt": datetime.now().isoformat()
+            }
+            
+            if existing_index >= 0:
+                schemes[existing_index] = scheme_entry
+            else:
+                schemes.append(scheme_entry)
+            
+            # Save to file
+            with open(SCHEMES_FILE, "w", encoding="utf-8") as f:
+                json.dump(schemes, f, ensure_ascii=False, indent=2)
+        
+        logger.log("success", f"方案已保存: {name}")
+        return jsonify({"success": True, "scheme": scheme_entry})
+    except Exception as e:
+        logger.log("error", f"Failed to save scheme: {str(e)}")
+        return jsonify({"success": False, "message": str(e)})
+
+
+@app.route("/api/schemes/<int:scheme_id>", methods=["DELETE"])
+def api_delete_scheme(scheme_id):
+    """Delete a scheme by ID"""
+    try:
+        with schemes_lock:
+            if not os.path.exists(SCHEMES_FILE):
+                return jsonify({"success": False, "message": "方案不存在"})
+            
+            with open(SCHEMES_FILE, "r", encoding="utf-8") as f:
+                schemes = json.load(f)
+            
+            scheme = next((s for s in schemes if s.get("id") == scheme_id), None)
+            if not scheme:
+                return jsonify({"success": False, "message": "方案不存在"})
+            
+            schemes = [s for s in schemes if s.get("id") != scheme_id]
+            
+            with open(SCHEMES_FILE, "w", encoding="utf-8") as f:
+                json.dump(schemes, f, ensure_ascii=False, indent=2)
+        
+        logger.log("success", f"方案已删除: {scheme['name']}")
+        return jsonify({"success": True})
+    except Exception as e:
+        logger.log("error", f"Failed to delete scheme: {str(e)}")
+        return jsonify({"success": False, "message": str(e)})
 
 
 @app.route("/api/shutdown", methods=["POST"])

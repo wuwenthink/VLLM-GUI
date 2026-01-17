@@ -2,7 +2,7 @@
 setlocal
 
 REM 默认端口
-set PORT=5001
+set PORT=5002
 
 REM 解析命令行参数
 :parse_args

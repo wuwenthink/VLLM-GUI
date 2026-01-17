@@ -1,0 +1,422 @@
+[
+  {
+    "id": 1768662992840,
+    "name": "MiniMax-M2.1-NVFP4-TYW-TP2",
+    "config": {
+      "wslPath": "",
+      "condaEnv": "vllm",
+      "condaPath": "/mnt/AI-Acer4T/miniconda3",
+      "envType": "linux",
+      "cudaDevices": "0,1",
+      "tensorParallel": 2,
+      "pipelineParallelSize": 1,
+      "modelPath": "/mnt/AI-Acer4T/AI-Chat/models/minimax/MiniMax-M2.1-NVFP4-TYW",
+      "quantization": "nvfp4",
+      "dtype": "auto",
+      "maxModelLen": "128000",
+      "host": "0.0.0.0",
+      "port": 8005,
+      "gpuMemoryUtilization": 0.9,
+      "maxNumSequences": 256,
+      "maxNumBatchedTokens": 8192,
+      "servedModelName": "VLLM-MODEL",
+      "chatTemplate": "/mnt/AI-Acer4T/AI-Chat/models/minimax/MiniMax-M2.1-NVFP4-TYW/chat_template.jinja",
+      "toolCallParser": "minimax_m2",
+      "reasoningParser": "minimax_m2_append_think",
+      "trustRemoteCode": true,
+      "enableExpertParallel": false,
+      "enableAutoToolChoice": true,
+      "asyncScheduling": true,
+      "customParams": [
+        {
+          "name": "--kv-cache-dtype fp8",
+          "value": "",
+          "isFlag": false
+        },
+        {
+          "name": "--enable-chunked-prefill",
+          "value": "",
+          "isFlag": false
+        },
+        {
+          "name": "--all2all-backend pplx",
+          "value": "",
+          "isFlag": false
+        }
+      ],
+      "quickParams": [
+        {
+          "name": "export NCCL_IB_DISABLE=0",
+          "value": "",
+          "isFlag": true
+        },
+        {
+          "name": "export NCCL_NVLS_ENABLE=1",
+          "value": "",
+          "isFlag": true
+        },
+        {
+          "name": "export NCCL_P2P_DISABLE=0",
+          "value": "",
+          "isFlag": true
+        },
+        {
+          "name": "export NCCL_SHM_DISABLE=0",
+          "value": "",
+          "isFlag": true
+        },
+        {
+          "name": "export SAFETENSORS_FAST_GPU=1",
+          "value": "",
+          "isFlag": true
+        },
+        {
+          "name": "export CUDA_DEVICE_ORDER=PCI_BUS_ID",
+          "value": "",
+          "isFlag": true
+        },
+        {
+          "name": "export CUDA_VISIBLE_DEVICES=0,1",
+          "value": "",
+          "isFlag": true
+        }
+      ]
+    },
+    "envType": "linux",
+    "createdAt": "2026-01-17T23:16:32.840164"
+  },
+  {
+    "id": 1768663054573,
+    "name": "MiniMax-M2.1-FP8-INT4-AWQ-M-TP2",
+    "config": {
+      "wslPath": "",
+      "condaEnv": "vllm",
+      "condaPath": "/mnt/AI-Acer4T/miniconda3",
+      "envType": "linux",
+      "cudaDevices": "0,1",
+      "tensorParallel": 2,
+      "pipelineParallelSize": 1,
+      "modelPath": "/mnt/AI-Acer4T/AI-Chat/models/minimax/minimax/MiniMax-M2.1-FP8-INT4-AWQ-M",
+      "quantization": "awq",
+      "dtype": "auto",
+      "maxModelLen": "128000",
+      "host": "0.0.0.0",
+      "port": 8005,
+      "gpuMemoryUtilization": 0.9,
+      "maxNumSequences": 256,
+      "maxNumBatchedTokens": 8192,
+      "servedModelName": "VLLM-MODEL",
+      "chatTemplate": "/mnt/AI-Acer4T/AI-Chat/models/minimax/minimax/MiniMax-M2.1-FP8-INT4-AWQ-M/chat_template.jinja",
+      "toolCallParser": "minimax_m2",
+      "reasoningParser": "minimax_m2_append_think",
+      "trustRemoteCode": true,
+      "enableExpertParallel": false,
+      "enableAutoToolChoice": true,
+      "asyncScheduling": true,
+      "customParams": [
+        {
+          "name": "--kv-cache-dtype fp8",
+          "value": "",
+          "isFlag": false
+        },
+        {
+          "name": "--enable-chunked-prefill",
+          "value": "",
+          "isFlag": false
+        },
+        {
+          "name": "--all2all-backend pplx",
+          "value": "",
+          "isFlag": false
+        }
+      ],
+      "quickParams": [
+        {
+          "name": "export NCCL_IB_DISABLE=0",
+          "value": "",
+          "isFlag": true
+        },
+        {
+          "name": "export NCCL_NVLS_ENABLE=1",
+          "value": "",
+          "isFlag": true
+        },
+        {
+          "name": "export NCCL_P2P_DISABLE=0",
+          "value": "",
+          "isFlag": true
+        },
+        {
+          "name": "export NCCL_SHM_DISABLE=0",
+          "value": "",
+          "isFlag": true
+        },
+        {
+          "name": "export SAFETENSORS_FAST_GPU=1",
+          "value": "",
+          "isFlag": true
+        },
+        {
+          "name": "export CUDA_DEVICE_ORDER=PCI_BUS_ID",
+          "value": "",
+          "isFlag": true
+        },
+        {
+          "name": "export CUDA_VISIBLE_DEVICES=0,1",
+          "value": "",
+          "isFlag": true
+        }
+      ]
+    },
+    "envType": "linux",
+    "createdAt": "2026-01-17T23:17:34.573136"
+  },
+  {
+    "id": 1768663091085,
+    "name": "MiniMax-M2.1-NVFP4-TP2",
+    "config": {
+      "wslPath": "",
+      "condaEnv": "vllm",
+      "condaPath": "/mnt/AI-Acer4T/miniconda3",
+      "envType": "linux",
+      "cudaDevices": "0,1",
+      "tensorParallel": 2,
+      "pipelineParallelSize": 1,
+      "modelPath": "/mnt/AI-Acer4T/AI-Chat/models/minimax/MiniMax-M2.1-NVFP4",
+      "quantization": "nvfp4",
+      "dtype": "auto",
+      "maxModelLen": "128000",
+      "host": "0.0.0.0",
+      "port": 8005,
+      "gpuMemoryUtilization": 0.9,
+      "maxNumSequences": 256,
+      "maxNumBatchedTokens": 8192,
+      "servedModelName": "VLLM-MODEL",
+      "chatTemplate": "/mnt/AI-Acer4T/AI-Chat/models/minimax/MiniMax-M2.1-NVFP4/chat_template.jinja",
+      "toolCallParser": "minimax_m2",
+      "reasoningParser": "minimax_m2_append_think",
+      "trustRemoteCode": true,
+      "enableExpertParallel": false,
+      "enableAutoToolChoice": true,
+      "asyncScheduling": true,
+      "customParams": [
+        {
+          "name": "--kv-cache-dtype fp8",
+          "value": "",
+          "isFlag": false
+        },
+        {
+          "name": "--enable-chunked-prefill",
+          "value": "",
+          "isFlag": false
+        },
+        {
+          "name": "--all2all-backend pplx",
+          "value": "",
+          "isFlag": false
+        }
+      ],
+      "quickParams": [
+        {
+          "name": "export NCCL_IB_DISABLE=0",
+          "value": "",
+          "isFlag": true
+        },
+        {
+          "name": "export NCCL_NVLS_ENABLE=1",
+          "value": "",
+          "isFlag": true
+        },
+        {
+          "name": "export NCCL_P2P_DISABLE=0",
+          "value": "",
+          "isFlag": true
+        },
+        {
+          "name": "export NCCL_SHM_DISABLE=0",
+          "value": "",
+          "isFlag": true
+        },
+        {
+          "name": "export SAFETENSORS_FAST_GPU=1",
+          "value": "",
+          "isFlag": true
+        },
+        {
+          "name": "export CUDA_DEVICE_ORDER=PCI_BUS_ID",
+          "value": "",
+          "isFlag": true
+        },
+        {
+          "name": "export CUDA_VISIBLE_DEVICES=0,1",
+          "value": "",
+          "isFlag": true
+        }
+      ]
+    },
+    "envType": "linux",
+    "createdAt": "2026-01-17T23:18:11.085718"
+  },
+  {
+    "id": 1768663134148,
+    "name": "MiniMax-M2.1-AWQ-TP2",
+    "config": {
+      "wslPath": "",
+      "condaEnv": "vllm",
+      "condaPath": "/mnt/AI-Acer4T/miniconda3",
+      "envType": "linux",
+      "cudaDevices": "0,1",
+      "tensorParallel": 2,
+      "pipelineParallelSize": 1,
+      "modelPath": "/mnt/AI-Acer4T/AI-Chat/models/minimax/minimax/MiniMax-M2.1-AWQ",
+      "quantization": "awq",
+      "dtype": "auto",
+      "maxModelLen": "128000",
+      "host": "0.0.0.0",
+      "port": 8005,
+      "gpuMemoryUtilization": 0.9,
+      "maxNumSequences": 256,
+      "maxNumBatchedTokens": 8192,
+      "servedModelName": "VLLM-MODEL",
+      "chatTemplate": "/mnt/AI-Acer4T/AI-Chat/models/minimax/minimax/MiniMax-M2.1-AWQ/chat_template.jinja",
+      "toolCallParser": "minimax_m2",
+      "reasoningParser": "minimax_m2_append_think",
+      "trustRemoteCode": true,
+      "enableExpertParallel": false,
+      "enableAutoToolChoice": true,
+      "asyncScheduling": true,
+      "customParams": [
+        {
+          "name": "--kv-cache-dtype fp8",
+          "value": "",
+          "isFlag": false
+        },
+        {
+          "name": "--enable-chunked-prefill",
+          "value": "",
+          "isFlag": false
+        },
+        {
+          "name": "--all2all-backend pplx",
+          "value": "",
+          "isFlag": false
+        }
+      ],
+      "quickParams": [
+        {
+          "name": "export NCCL_IB_DISABLE=0",
+          "value": "",
+          "isFlag": true
+        },
+        {
+          "name": "export NCCL_NVLS_ENABLE=1",
+          "value": "",
+          "isFlag": true
+        },
+        {
+          "name": "export NCCL_P2P_DISABLE=0",
+          "value": "",
+          "isFlag": true
+        },
+        {
+          "name": "export NCCL_SHM_DISABLE=0",
+          "value": "",
+          "isFlag": true
+        },
+        {
+          "name": "export SAFETENSORS_FAST_GPU=1",
+          "value": "",
+          "isFlag": true
+        },
+        {
+          "name": "export CUDA_DEVICE_ORDER=PCI_BUS_ID",
+          "value": "",
+          "isFlag": true
+        },
+        {
+          "name": "export CUDA_VISIBLE_DEVICES=0,1",
+          "value": "",
+          "isFlag": true
+        }
+      ]
+    },
+    "envType": "linux",
+    "createdAt": "2026-01-17T23:18:54.148649"
+  },
+  {
+    "id": 1768664540491,
+    "name": "Devstral-2-123B-Instruct-2512-TP2",
+    "config": {
+      "wslPath": "",
+      "condaEnv": "vllm",
+      "condaPath": "/mnt/AI-Acer4T/miniconda3",
+      "envType": "linux",
+      "cudaDevices": "0,1",
+      "tensorParallel": 2,
+      "pipelineParallelSize": 1,
+      "modelPath": "/mnt/AI-Acer4T/AI-Chat/models/Devstral-2/Devstral-2-123B-Instruct-2512",
+      "quantization": "",
+      "dtype": "auto",
+      "maxModelLen": "128000",
+      "host": "0.0.0.0",
+      "port": 8005,
+      "gpuMemoryUtilization": 0.9,
+      "maxNumSequences": 256,
+      "maxNumBatchedTokens": 8192,
+      "servedModelName": "VLLM-MODEL",
+      "chatTemplate": "/mnt/AI-Acer4T/AI-Chat/models/minimax/minimax/MiniMax-M2.1-AWQ/chat_template.jinja",
+      "toolCallParser": "mistral",
+      "reasoningParser": "mistral",
+      "trustRemoteCode": true,
+      "enableExpertParallel": false,
+      "enableAutoToolChoice": true,
+      "asyncScheduling": true,
+      "customParams": [
+        {
+          "name": "--kv-cache-dtype fp8",
+          "value": "",
+          "isFlag": false
+        }
+      ],
+      "quickParams": [
+        {
+          "name": "export NCCL_IB_DISABLE=0",
+          "value": "",
+          "isFlag": true
+        },
+        {
+          "name": "export NCCL_NVLS_ENABLE=1",
+          "value": "",
+          "isFlag": true
+        },
+        {
+          "name": "export NCCL_P2P_DISABLE=0",
+          "value": "",
+          "isFlag": true
+        },
+        {
+          "name": "export NCCL_SHM_DISABLE=0",
+          "value": "",
+          "isFlag": true
+        },
+        {
+          "name": "export SAFETENSORS_FAST_GPU=1",
+          "value": "",
+          "isFlag": true
+        },
+        {
+          "name": "export CUDA_DEVICE_ORDER=PCI_BUS_ID",
+          "value": "",
+          "isFlag": true
+        },
+        {
+          "name": "export CUDA_VISIBLE_DEVICES=0,1",
+          "value": "",
+          "isFlag": true
+        }
+      ]
+    },
+    "envType": "linux",
+    "createdAt": "2026-01-17T23:42:20.491088"
+  }
+]

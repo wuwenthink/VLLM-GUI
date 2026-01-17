@@ -3,7 +3,7 @@
 # VLLM GUI Server 快捷启动脚本 (WSL/Linux)
 
 # 默认端口
-PORT=5000
+PORT=5003
 
 # 解析命令行参数
 while [[ $# -gt 0 ]]; do
