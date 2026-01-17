@@ -1,0 +1,667 @@
+/**
+ * VLLM GUI - UI/UX Improvements
+ *
+ * Add this CSS after existing styles in vllm_complete.html
+ * or replace/update existing rules with these improvements.
+ */
+
+/* ============================================
+   CRITICAL ACCESSIBILITY - REDUCED MOTION
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .app-title i,
+    .status-dot::after,
+    .top-bar::before {
+        animation: none;
+    }
+
+    .loading {
+        animation: spin 1s linear infinite;
+    }
+}
+
+/* ============================================
+   SKIP LINK FOR KEYBOARD USERS
+   ============================================ */
+
+.skip-link {
+    position: absolute;
+    top: -100%;
+    left: 0;
+    background: var(--primary-gradient-vibrant);
+    color: #fff;
+    padding: 12px 24px;
+    z-index: 100000;
+    font-weight: 600;
+    text-decoration: none;
+    transition: top 0.2s ease;
+    border-radius: 0 0 8px 0;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+/* ============================================
+   FOCUS STATES - VISIBLE & ACCESSIBLE
+   ============================================ */
+
+.param-input:focus-visible,
+.scheme-select:focus-visible,
+.scheme-action-btn:focus-visible,
+.env-btn:focus-visible,
+.clear-btn:focus-visible,
+.remove-param-btn:focus-visible,
+.add-param-btn:focus-visible,
+.action-buttons button:focus-visible,
+.reference-item:focus-visible,
+.scheme-item:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.5), 0 8px 25px rgba(102, 126, 234, 0.15);
+    border-color: #667eea;
+}
+
+.action-buttons button:focus-visible::after {
+    opacity: 0;
+}
+
+/* ============================================
+   CURSOR POINTER - INTERACTIVE ELEMENTS
+   ============================================ */
+
+.scheme-item,
+.reference-item,
+.param-group,
+.scheme-selector,
+.gpu-item {
+    cursor: pointer !important;
+}
+
+/* ============================================
+   LAYOUT FIX - DYNAMIC VIEWPORT HEIGHT
+   ============================================ */
+
+body {
+    min-height: 100dvh;
+}
+
+.app-container {
+    height: 100dvh;
+}
+
+.main-content {
+    min-height: 0;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 1024px) {
+    .app-container {
+        margin: 8px;
+        border-radius: 16px;
+    }
+
+    .left-panel {
+        width: 400px;
+        flex-shrink: 0;
+    }
+
+    .top-bar {
+        padding: 15px 20px;
+    }
+
+    .app-title {
+        font-size: 1.5em;
+    }
+}
+
+@media (max-width: 768px) {
+    .app-container {
+        margin: 4px;
+        border-radius: 12px;
+    }
+
+    .main-content {
+        flex-direction: column;
+        padding: 10px;
+        overflow-y: auto;
+    }
+
+    .left-panel {
+        width: 100%;
+        min-width: 0;
+        max-height: 50vh;
+        border-radius: 16px;
+    }
+
+    .right-panel {
+        min-height: 50vh;
+        border-radius: 16px;
+    }
+
+    .right-split-container {
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px;
+    }
+
+    .command-section {
+        width: 100%;
+    }
+
+    .terminal-section {
+        min-height: 400px;
+    }
+
+    .top-bar {
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 12px 15px;
+    }
+
+    .app-title {
+        font-size: 1.2em;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .scheme-selector {
+        width: 100%;
+        order: 1;
+    }
+
+    .env-type-toggle {
+        flex-wrap: wrap;
+        order: 2;
+    }
+
+    .env-btn {
+        padding: 10px 16px;
+        font-size: 0.9em;
+    }
+
+    .status-indicator {
+        order: 3;
+        padding: 8px 16px;
+        font-size: 0.9em;
+    }
+
+    .panel-tab {
+        padding: 12px 8px;
+        font-size: 0.85em;
+    }
+
+    .panel-content {
+        padding: 12px;
+    }
+
+    .param-group {
+        padding: 16px;
+        margin-bottom: 16px;
+    }
+
+    .param-input {
+        padding: 12px 14px;
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 480px) {
+    .app-container {
+        margin: 2px;
+        border-radius: 8px;
+    }
+
+    .scheme-list-popup {
+        left: 10px !important;
+        right: 10px !important;
+        min-width: auto;
+    }
+
+    .gpu-item {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        padding: 12px;
+    }
+
+    .gpu-item > *:nth-child(n+3) {
+        grid-column: span 2;
+    }
+}
+
+/* ============================================
+   COLOR CONTRAST IMPROVEMENTS - LIGHT MODE
+   ============================================ */
+
+@media (prefers-color-scheme: light) {
+    .scheme-select,
+    .scheme-list-popup {
+        background: rgba(255, 255, 255, 0.95);
+    }
+
+    .scheme-select:hover,
+    .scheme-select:focus {
+        background: rgba(255, 255, 255, 0.95);
+    }
+
+    .status-indicator {
+        background: rgba(255, 255, 255, 0.95);
+    }
+
+    .scheme-item-name {
+        color: #1e293b;
+    }
+
+    .scheme-item-desc {
+        color: #475569;
+    }
+
+    .param-label {
+        color: #334155;
+    }
+}
+
+/* ============================================
+   GLASSMORPHISM OPACITY FIX
+   ============================================ */
+
+.scheme-select {
+    background: rgba(255, 255, 255, 0.8) !important;
+}
+
+.scheme-select:hover,
+.scheme-select:focus {
+    background: rgba(255, 255, 255, 0.9) !important;
+}
+
+.status-indicator {
+    background: rgba(255, 255, 255, 0.8) !important;
+}
+
+.param-checkbox {
+    background: rgba(102, 126, 234, 0.15);
+    border: 2px solid rgba(102, 126, 234, 0.3);
+}
+
+/* ============================================
+   STABLE HOVER STATES (NO LAYOUT SHIFT)
+   ============================================ */
+
+.param-group:hover {
+    transform: none !important;
+    border-color: rgba(102, 126, 234, 0.4);
+    box-shadow: 0 10px 40px rgba(102, 126, 234, 0.2);
+}
+
+.param-group:active {
+    transform: none !important;
+}
+
+.scheme-item:hover {
+    transform: none !important;
+    padding-left: 16px !important;
+    background: rgba(102, 126, 234, 0.15);
+}
+
+.scheme-item:active {
+    transform: none !important;
+}
+
+.scheme-action-btn:hover {
+    transform: none !important;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.reference-item:hover {
+    transform: none !important;
+    padding-left: 12px !important;
+    background: rgba(102, 126, 234, 0.15);
+}
+
+.remove-param-btn:hover {
+    transform: none !important;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.add-param-btn:hover {
+    transform: none !important;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+}
+
+.env-btn:hover {
+    transform: none !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.action-buttons button:hover:not(:disabled) {
+    transform: none !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* ============================================
+   ANIMATION DURATION OPTIMIZATION
+   ============================================ */
+
+.param-group,
+.scheme-item,
+.scheme-action-btn,
+.reference-item,
+.remove-param-btn,
+.add-param-btn,
+.env-btn,
+.clear-btn,
+.param-input,
+.param-checkbox {
+    transition-duration: 200ms !important;
+}
+
+.toast {
+    animation-duration: 300ms !important;
+}
+
+.tab-pane {
+    animation-duration: 200ms !important;
+}
+
+/* ============================================
+   TOUCH TARGET SIZES (44x44px MINIMUM)
+   ============================================ */
+
+.remove-param-btn {
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.param-checkbox input {
+    width: 24px;
+    height: 24px;
+}
+
+.param-checkbox {
+    padding: 12px 18px;
+}
+
+.scheme-item {
+    padding: 16px 20px;
+    min-height: 48px;
+}
+
+.reference-item {
+    padding: 12px 16px;
+    min-height: 48px;
+}
+
+.panel-tab {
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ============================================
+   REMOVE EXCESSIVE ANIMATIONS
+   ============================================ */
+
+.app-title i {
+    animation: none !important;
+}
+
+.top-bar::before {
+    animation: none !important;
+    opacity: 0;
+}
+
+.status-dot::after {
+    animation: none !important;
+}
+
+.status-dot.running::after {
+    animation: pulse 2s ease-out infinite !important;
+}
+
+.app-title i {
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));
+}
+
+.command-preview-box::before,
+.status-box::before,
+.gpu-status-box::before,
+.terminal-section::before {
+    animation: none !important;
+}
+
+.command-preview-box::before {
+    background: linear-gradient(90deg, #22c55e, #16a34a, #22c55e);
+    background-size: 100% 100%;
+    animation: none !important;
+}
+
+.status-box.running::before {
+    animation: gradientFlow 2s linear infinite !important;
+}
+
+.gpu-status-box.running::before {
+    animation: gradientFlow 2s linear infinite !important;
+}
+
+.terminal-section.running::before {
+    animation: gradientFlow 1.5s linear infinite !important;
+}
+
+/* ============================================
+   ACCESSIBLE STATUS INDICATORS
+   ============================================ */
+
+.status-text {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.status-text.ready::before {
+    content: '✓';
+    color: #22c55e;
+    font-weight: bold;
+}
+
+.status-text.running::before {
+    content: '⟳';
+    color: #f59e0b;
+    animation: spin 1s linear infinite;
+}
+
+.status-text.error::before {
+    content: '⚠';
+    color: #ef4444;
+}
+
+.terminal-line.error::before {
+    content: '⚠ ';
+}
+
+.terminal-line.warning::before {
+    content: '⚠ ';
+}
+
+.terminal-line.success::before {
+    content: '✓ ';
+}
+
+/* ============================================
+   HORIZONTAL SCROLL PREVENTION
+   ============================================ */
+
+body,
+.app-container,
+.main-content,
+.panel-content,
+.tab-pane,
+.param-group {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.command-content,
+.terminal-content,
+.gpu-status-box {
+    overflow-x: auto;
+}
+
+/* ============================================
+   KEYBOARD NAVIGATION IMPROVEMENTS
+   ============================================ */
+
+.scheme-list-popup {
+    z-index: 99999;
+}
+
+*:focus-visible {
+    outline: 2px solid #667eea;
+    outline-offset: 2px;
+}
+
+*:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* ============================================
+   LOADING STATE IMPROVEMENTS
+   ============================================ */
+
+.action-buttons button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    position: relative;
+}
+
+.action-buttons button:disabled::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 16px;
+    height: 16px;
+    margin-top: -8px;
+    margin-left: -8px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* ============================================
+   ADDITIONAL UTILITIES
+   ============================================ */
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.focus-trap {
+    position: relative;
+}
+
+.focus-trap:focus {
+    outline: 2px solid #667eea;
+}
+
+@media (max-width: 768px) {
+    ::-webkit-scrollbar {
+        width: 4px;
+        height: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        border-radius: 2px;
+    }
+}
+
+/* ============================================
+   PERFORMANCE OPTIMIZATIONS
+   ============================================ */
+
+.action-buttons button,
+.scheme-item,
+.reference-item {
+    will-change: transform, box-shadow;
+}
+
+.app-container,
+.left-panel,
+.right-panel {
+    transform: translateZ(0);
+}
+
+/* ============================================
+   HIGH CONTRAST MODE SUPPORT
+   ============================================ */
+
+@media (prefers-contrast: high) {
+    .param-input,
+    .scheme-select,
+    .param-checkbox {
+        border-width: 3px;
+    }
+
+    .param-input:focus-visible,
+    .scheme-select:focus-visible {
+        box-shadow: 0 0 0 4px #000;
+        border-color: #000;
+    }
+
+    .toast {
+        border: 2px solid #000;
+    }
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+
+@media print {
+    body {
+        background: #fff;
+    }
+
+    .app-container {
+        box-shadow: none;
+        border: 1px solid #000;
+        margin: 0;
+    }
+
+    .top-bar,
+    .terminal-section,
+    .command-section,
+    .action-buttons {
+        display: none;
+    }
+
+    .left-panel,
+    .right-panel {
+        box-shadow: none;
+        border: 1px solid #000;
+    }
+}

@@ -1,0 +1,58 @@
+/**
+ * VLLM GUI - Minimal Right Panel Fixes
+ *
+ * This file contains MINIMAL CSS fixes for display issues.
+ * ONLY increases max-heights and adds min-height: 0 to prevent flex overflow.
+ * Does NOT change existing layout structure or sizing model.
+ */
+
+/* Increase command preview height to show full commands */
+.command-content {
+    max-height: 350px !important;
+}
+
+/* Increase GPU status box height to show all GPU information */
+.gpu-status-box {
+    max-height: 450px !important;
+}
+
+/* Add min-height to flex containers to prevent overflow (non-invasive fix) */
+.right-split-container,
+.command-section,
+.terminal-section,
+.left-panel {
+    min-height: 0;
+}
+
+/* Ensure status content has proper scrolling */
+.status-content {
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+/* Ensure terminal content has proper scrolling */
+.terminal-content {
+    min-height: 0;
+    overflow-y: auto;
+}
+
+/* Prevent horizontal overflow on containers */
+.right-panel,
+.right-split-container,
+.command-section,
+.terminal-section {
+    overflow-x: hidden;
+}
+
+/* Allow horizontal scroll on content areas */
+.command-content,
+.status-content,
+.gpu-status-box,
+.terminal-content {
+    overflow-x: auto;
+}
+
+/* Ensure right panel takes remaining space */
+.right-panel {
+    min-height: 0;
+}

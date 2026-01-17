@@ -1,0 +1,713 @@
+/**
+ * VLLM GUI - Right Panel Layout Fixes
+ *
+ * This file contains CSS fixes for layout issues in the right panel.
+ * Add this CSS after the existing styles in vllm_complete.html
+ * or integrate these rules into the existing stylesheet.
+ */
+
+.right-split-container {
+    display: flex;
+    height: 100%;
+    gap: 15px;
+    padding: 15px;
+    min-height: 0;
+}
+
+.command-section {
+    flex: 0 0 380px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-height: 0;
+    max-width: 400px;
+}
+
+.command-preview-box {
+    background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+    border-radius: 16px;
+    padding: 18px;
+    border: 2px solid rgba(102, 126, 234, 0.3);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    animation: scaleIn 0.4s ease-out;
+    position: relative;
+    overflow: hidden;
+    flex: 0 0 auto;
+}
+
+.command-content {
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+    padding: 14px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 0.85em;
+    color: #22c55e;
+    white-space: pre-wrap;
+    word-break: break-all;
+    max-height: 350px;
+    overflow-y: auto;
+    overflow-x: auto;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.command-content::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.command-content::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+
+.command-content::-webkit-scrollbar-thumb {
+    background: rgba(102, 126, 234, 0.5);
+    border-radius: 3px;
+}
+
+.command-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(102, 126, 234, 0.7);
+}
+
+.status-box {
+    background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+    border-radius: 16px;
+    padding: 18px;
+    border: 2px solid rgba(102, 126, 234, 0.3);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    animation: scaleIn 0.4s ease-out;
+    animation-delay: 0.1s;
+    animation-fill-mode: both;
+    position: relative;
+    overflow: hidden;
+    flex: 0 0 auto;
+}
+
+.status-content {
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+    padding: 14px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 0.9em;
+    color: #e6edf3;
+    min-height: 60px;
+    max-height: 150px;
+    overflow-y: auto;
+    transition: all 0.3s ease;
+}
+
+.status-content::-webkit-scrollbar {
+    width: 4px;
+}
+
+.status-content::-webkit-scrollbar-thumb {
+    background: rgba(102, 126, 234, 0.5);
+    border-radius: 2px;
+}
+
+.status-content.ready { color: #22c55e; }
+
+.status-content.running {
+    color: #f59e0b;
+    animation: pulse 1s ease-in-out infinite;
+    box-shadow: inset 0 0 20px rgba(245, 158, 11, 0.2);
+}
+
+.status-content.error { color: #ef4444; background: rgba(239, 68, 68, 0.1); }
+
+.gpu-status-box {
+    background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+    border-radius: 16px;
+    padding: 18px;
+    border: 2px solid rgba(102, 126, 234, 0.3);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    animation: scaleIn 0.4s ease-out;
+    animation-delay: 0.15s;
+    animation-fill-mode: both;
+    position: relative;
+    overflow-y: auto;
+    max-height: 450px;
+    flex: 1 1 0;
+    min-height: 0;
+    margin-top: 8px;
+}
+
+.gpu-status-box::-webkit-scrollbar {
+    width: 6px;
+}
+
+.gpu-status-box::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+
+.gpu-status-box::-webkit-scrollbar-thumb {
+    background: rgba(102, 126, 234, 0.5);
+    border-radius: 3px;
+}
+
+.gpu-status-box::-webkit-scrollbar-thumb:hover {
+    background: rgba(102, 126, 234, 0.7);
+}
+
+.gpu-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #e6edf3;
+    font-size: 1em;
+    font-weight: 700;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(102, 126, 234, 0.2);
+    flex: 0 0 auto;
+}
+
+.gpu-title i {
+    color: #22c55e;
+    font-size: 1.2em;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.gpu-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-height: 0;
+}
+
+.gpu-item {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    padding: 14px;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
+    gap: 12px;
+    align-items: center;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 0.85em;
+    transition: all 0.3s ease;
+    min-width: 0;
+}
+
+.gpu-item:hover {
+    background: rgba(102, 126, 234, 0.15);
+}
+
+.gpu-name {
+    color: #e6edf3;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.gpu-name i {
+    color: #3b82f6;
+}
+
+.gpu-memory {
+    color: #22c55e;
+    text-align: center;
+}
+
+.gpu-util {
+    color: #f59e0b;
+    text-align: center;
+}
+
+.gpu-temp {
+    color: #ef4444;
+    text-align: center;
+}
+
+.gpu-power {
+    color: #a855f7;
+    text-align: center;
+}
+
+.gpu-label {
+    color: #8b949e;
+    font-size: 0.75em;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.gpu-empty {
+    color: #8b949e;
+    text-align: center;
+    padding: 20px;
+    font-style: italic;
+    min-height: 0;
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    animation: scaleIn 0.4s ease-out;
+    animation-delay: 0.2s;
+    animation-fill-mode: both;
+    flex: 0 0 auto;
+}
+
+.action-buttons button {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.9em;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    min-height: 44px;
+}
+
+.section-title {
+    font-size: 1em;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+    margin-bottom: 12px;
+    flex: 0 0 auto;
+}
+
+.section-title i {
+    color: #a78bfa;
+}
+
+.terminal-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(135deg, #0d1117 0%, #161b22 50%, #1a1f26 100%);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 2px solid rgba(102, 126, 234, 0.3);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    position: relative;
+    min-height: 0;
+}
+
+.terminal-section .terminal-content {
+    min-height: 0;
+}
+
+.terminal-header {
+    padding: 14px 20px;
+    background: var(--primary-gradient-vibrant);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 0 0 auto;
+}
+
+.terminal-title {
+    font-size: 1.1em;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #fff;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.terminal-title i {
+    animation: pulse 2s infinite, glow 3s ease-in-out infinite;
+}
+
+.clear-btn {
+    padding: 8px 14px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 0.85em;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.clear-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+}
+
+.clear-btn:active {
+    transform: translateY(0) scale(0.95);
+}
+
+.terminal-content {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    overflow-x: auto;
+    font-family: 'Consolas', 'Courier New', 'Microsoft YaHei', monospace;
+    font-size: 0.9em;
+    line-height: 1.6;
+    position: relative;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.terminal-content::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.terminal-content::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+}
+
+.terminal-content::-webkit-scrollbar-thumb {
+    background: rgba(102, 126, 234, 0.6);
+    border-radius: 4px;
+}
+
+.terminal-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(102, 126, 234, 0.8);
+}
+
+.right-panel,
+.right-split-container,
+.command-section,
+.terminal-section {
+    overflow-x: hidden;
+}
+
+.command-content,
+.terminal-content {
+    overflow-x: auto;
+}
+
+.right-panel {
+    position: relative;
+    z-index: 1;
+}
+
+.command-preview-box,
+.status-box,
+.gpu-status-box,
+.action-buttons,
+.terminal-section {
+    position: relative;
+    z-index: 2;
+}
+
+.main-content {
+    display: flex;
+    gap: 15px;
+    padding: 15px;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.left-panel {
+    flex: 0 0 450px;
+    min-height: 0;
+    max-height: 100%;
+    overflow-y: auto;
+}
+
+.right-panel {
+    flex: 1;
+    min-height: 0;
+    max-height: 100%;
+    overflow: hidden;
+}
+
+body {
+    min-height: 100dvh;
+    height: 100dvh;
+}
+
+.app-container {
+    height: 100dvh;
+    overflow: hidden;
+}
+
+.main-content {
+    height: calc(100dvh - var(--top-bar-height, 70px) - 30px);
+}
+
+@media (min-width: 1440px) {
+    .command-section {
+        flex: 0 0 400px;
+        max-width: 420px;
+    }
+
+    .command-content {
+        max-height: 400px;
+    }
+
+    .gpu-status-box {
+        max-height: 500px;
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+    .command-section {
+        flex: 0 0 340px;
+        max-width: 360px;
+    }
+
+    .command-content {
+        max-height: 300px;
+    }
+
+    .gpu-status-box {
+        max-height: 400px;
+    }
+}
+
+@media (max-width: 1023px) {
+    .right-split-container {
+        flex-direction: column;
+        gap: 12px;
+        padding: 12px;
+    }
+
+    .command-section {
+        flex: 0 0 auto;
+        width: 100%;
+        max-width: none;
+        max-height: 40vh;
+        overflow-y: auto;
+    }
+
+    .command-content {
+        max-height: 250px;
+    }
+
+    .gpu-status-box {
+        max-height: 350px;
+        flex: 0 0 auto;
+    }
+
+    .terminal-section {
+        min-height: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    .right-panel {
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    .right-split-container {
+        gap: 10px;
+        padding: 10px;
+    }
+
+    .command-section {
+        width: 100%;
+        max-width: 100%;
+        max-height: 50vh;
+        overflow-y: auto;
+    }
+
+    .command-preview-box,
+    .status-box,
+    .gpu-status-box {
+        padding: 14px;
+    }
+
+    .command-content {
+        max-height: 200px;
+        font-size: 0.8em;
+    }
+
+    .gpu-status-box {
+        max-height: 300px;
+        margin-top: 6px;
+    }
+
+    .gpu-title {
+        font-size: 0.9em;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+    }
+
+    .gpu-item {
+        padding: 12px;
+        gap: 8px;
+        font-size: 0.8em;
+        grid-template-columns: 1.5fr 1fr 1fr;
+    }
+
+    .gpu-item > *:nth-child(4),
+    .gpu-item > *:nth-child(5) {
+        grid-column: span 3;
+    }
+
+    .terminal-section {
+        min-height: 250px;
+    }
+
+    .terminal-content {
+        font-size: 0.85em;
+        padding: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .right-split-container {
+        gap: 8px;
+        padding: 8px;
+    }
+
+    .command-preview-box,
+    .status-box,
+    .gpu-status-box {
+        padding: 12px;
+        border-radius: 12px;
+    }
+
+    .command-content {
+        max-height: 180px;
+        font-size: 0.75em;
+        padding: 10px;
+    }
+
+    .gpu-status-box {
+        max-height: 250px;
+        padding: 12px;
+    }
+
+    .gpu-item {
+        grid-template-columns: 1fr;
+        gap: 6px;
+        padding: 10px;
+    }
+
+    .gpu-item > * {
+        grid-column: span 1;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .terminal-section {
+        min-height: 200px;
+        border-radius: 12px;
+    }
+
+    .terminal-header {
+        padding: 10px 14px;
+    }
+
+    .terminal-content {
+        font-size: 0.8em;
+        padding: 10px;
+    }
+
+    ::-webkit-scrollbar {
+        width: 4px;
+        height: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        border-radius: 2px;
+    }
+}
+
+@media print {
+    .right-split-container {
+        display: block;
+        height: auto;
+        gap: 0;
+        padding: 0;
+    }
+
+    .command-section {
+        width: 100%;
+        max-width: 100%;
+        max-height: none;
+        overflow: visible;
+        page-break-after: always;
+    }
+
+    .terminal-section {
+        display: block;
+        height: auto;
+        max-height: none;
+        page-break-after: always;
+    }
+
+    .action-buttons {
+        display: none;
+    }
+
+    .gpu-status-box {
+        max-height: none;
+        overflow: visible;
+    }
+
+    .command-content,
+    .terminal-content {
+        max-height: none;
+        overflow: visible;
+    }
+}
+
+@media (prefers-contrast: high) {
+    .command-preview-box,
+    .status-box,
+    .gpu-status-box,
+    .terminal-section {
+        border-width: 3px;
+    }
+
+    .command-content,
+    .terminal-content {
+        border: 2px solid rgba(255, 255, 255, 0.5);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .command-preview-box,
+    .status-box,
+    .gpu-status-box,
+    .terminal-section,
+    .action-buttons {
+        animation: none;
+    }
+}
+
+@media (forced-colors: active) {
+    .right-panel {
+        border: 2px solid CanvasText;
+    }
+
+    .command-preview-box,
+    .status-box,
+    .gpu-status-box,
+    .terminal-section {
+        border: 2px solid CanvasText;
+        background: Canvas;
+    }
+
+    .command-content,
+    .terminal-content {
+        border: 1px solid CanvasText;
+        background: Canvas;
+        color: CanvasText;
+    }
+}
+
+.terminal-content:focus,
+.command-content:focus {
+    outline: 2px solid #667eea;
+    outline-offset: 2px;
+}
