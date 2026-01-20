@@ -105,6 +105,10 @@ def validate_config(config: dict) -> tuple[bool, str]:
 
 def _find_conda_path_in_wsl() -> str:
     """在WSL环境中自动检测conda安装路径（通过WSL命令）"""
+    # 首先检查wsl命令是否存在
+    if not _wsl_command_exists():
+        raise FileNotFoundError("wsl command not found - this function requires WSL environment")
+
     # 首先验证用户配置的路径是否有效，如果无效则自动检测
     user_configured_path = os.environ.get("CONDA_PATH_CONFIGURED", "").strip()
     if user_configured_path:
@@ -1106,9 +1110,13 @@ def validate_conda_path():
         user_conda_path = (data.get("condaPath") or "").strip()
         env_type = data.get("envType", "wsl")
         
+        # 判断是否真正需要使用WSL命令
+        # 只有在用户明确指定env_type为wsl且wsl命令确实存在时才使用WSL
+        use_wsl = env_type == "wsl" and _wsl_command_exists()
+        
         # 如果没有用户配置的路径，返回自动检测的路径
         if not user_conda_path:
-            if env_type == "wsl":
+            if use_wsl:
                 valid_path = _find_conda_path_in_wsl()
             else:
                 valid_path = _find_conda_path()
@@ -1118,12 +1126,9 @@ def validate_conda_path():
                 "message": "Auto-detected conda path"
             })
         
-        # 确定是否是WSL路径（以/开头）
-        is_wsl_path = user_conda_path.startswith('/')
-        
         # 验证用户提供的路径
-        if env_type == "wsl" or is_wsl_path:
-            # 在WSL中检查路径是否存在
+        if use_wsl:
+            # 只有真正在WSL环境中才使用wsl命令检查路径
             result = subprocess.run(
                 ["wsl", "test", "-f", f"{user_conda_path}/bin/activate"],
                 capture_output=True,
@@ -1138,10 +1143,7 @@ def validate_conda_path():
                 })
             else:
                 # 路径无效，自动检测
-                if env_type == "wsl":
-                    auto_path = _find_conda_path_in_wsl()
-                else:
-                    auto_path = _find_conda_path()
+                auto_path = _find_conda_path_in_wsl()
                 logger.log("warning", f"User-provided conda path invalid: {user_conda_path}, using auto-detected: {auto_path}")
                 return jsonify({
                     "valid": False,
@@ -1149,7 +1151,7 @@ def validate_conda_path():
                     "message": f"User-provided path invalid, auto-detected: {auto_path}"
                 })
         else:
-            # 本地Linux环境
+            # 本地Linux/原生环境，直接检查本地路径
             activate_path = os.path.join(user_conda_path, "bin", "activate")
             if os.path.exists(activate_path):
                 return jsonify({
@@ -1166,10 +1168,14 @@ def validate_conda_path():
                 })
     except Exception as e:
         logger.log("error", f"Failed to validate conda path: {str(e)}")
-        # 出错时返回WSL自动检测的路径
+        # 出错时使用原生Linux检测方法（避免在Linux环境下调用wsl相关函数）
+        try:
+            auto_path = _find_conda_path()
+        except Exception:
+            auto_path = "/root/miniconda3"  # 默认路径
         return jsonify({
             "valid": False,
-            "path": _find_conda_path_in_wsl(),
+            "path": auto_path,
             "message": f"Error validating path, using auto-detected"
         })
 

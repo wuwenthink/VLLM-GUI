@@ -15665,3 +15665,122 @@
 [2026-01-20 10:55:04] [INFO] [0;36m(APIServer pid=432)[0;0m     raise RuntimeError(
 [2026-01-20 10:55:04] [INFO] [0;36m(APIServer pid=432)[0;0m RuntimeError: Engine core initialization failed. See root cause above. Failed core proc(s): {}
 [2026-01-20 10:55:06] [INFO] nvitop监控已启动
+[2026-01-20 18:07:38] [INFO] VLLM GUI 服务器启动，端口: 5001
+[2026-01-20 18:07:39] [INFO] nvitop监控已启动
+[2026-01-20 18:07:40] [INFO] nvitop监控已启动
+[2026-01-20 18:07:41] [INFO] 从conda info --base自动检测到conda路径: /mnt/AI-Acer4T/miniconda3
+[2026-01-20 18:07:54] [ERROR] Failed to validate conda path: [Errno 2] No such file or directory: 'wsl'
+[2026-01-20 18:07:54] [WARNING] 未在WSL中找到conda安装，使用默认路径: /root/miniconda3
+[2026-01-20 18:07:55] [ERROR] Failed to validate conda path: [Errno 2] No such file or directory: 'wsl'
+[2026-01-20 18:07:55] [WARNING] 未在WSL中找到conda安装，使用默认路径: /root/miniconda3
+[2026-01-20 18:07:55] [INFO] 启动命令: /bin/bash -c "source /root/miniconda3/etc/profile.d/conda.sh 2>/dev/null || true && source /root/min...
+[2026-01-20 18:07:55] [INFO] nvitop监控已启动
+[2026-01-20 18:07:55] [INFO] /bin/bash: 行 1: /root/miniconda3/bin/activate: 权限不够
+[2026-01-20 18:07:55] [INFO] nvitop监控已停止
+[2026-01-20 18:07:55] [INFO] nvitop监控已启动
+[2026-01-20 18:08:32] [ERROR] Failed to validate conda path: [Errno 2] No such file or directory: 'wsl'
+[2026-01-20 18:08:32] [WARNING] 未在WSL中找到conda安装，使用默认路径: /root/miniconda3
+[2026-01-20 18:08:37] [ERROR] Failed to validate conda path: [Errno 2] No such file or directory: 'wsl'
+[2026-01-20 18:08:37] [WARNING] 未在WSL中找到conda安装，使用默认路径: /root/miniconda3
+[2026-01-20 18:08:44] [ERROR] Failed to validate conda path: [Errno 2] No such file or directory: 'wsl'
+[2026-01-20 18:08:44] [WARNING] 未在WSL中找到conda安装，使用默认路径: /root/miniconda3
+[2026-01-20 18:08:46] [ERROR] Failed to validate conda path: [Errno 2] No such file or directory: 'wsl'
+[2026-01-20 18:08:46] [WARNING] 未在WSL中找到conda安装，使用默认路径: /root/miniconda3
+[2026-01-20 18:09:00] [ERROR] Failed to validate conda path: [Errno 2] No such file or directory: 'wsl'
+[2026-01-20 18:09:00] [WARNING] 未在WSL中找到conda安装，使用默认路径: /root/miniconda3
+[2026-01-20 18:09:01] [ERROR] Failed to validate conda path: [Errno 2] No such file or directory: 'wsl'
+[2026-01-20 18:09:01] [WARNING] 未在WSL中找到conda安装，使用默认路径: /root/miniconda3
+[2026-01-20 18:09:01] [INFO] 启动命令: /bin/bash -c "source /root/miniconda3/etc/profile.d/conda.sh 2>/dev/null || true && source /root/min...
+[2026-01-20 18:09:01] [INFO] nvitop监控已启动
+[2026-01-20 18:09:01] [INFO] /bin/bash: 行 1: /root/miniconda3/bin/activate: 权限不够
+[2026-01-20 18:09:01] [INFO] nvitop监控已停止
+[2026-01-20 18:09:01] [INFO] nvitop监控已启动
+[2026-01-20 18:09:22] [ERROR] Failed to validate conda path: [Errno 2] No such file or directory: 'wsl'
+[2026-01-20 18:09:22] [WARNING] 未在WSL中找到conda安装，使用默认路径: /root/miniconda3
+[2026-01-20 18:09:23] [ERROR] Failed to validate conda path: [Errno 2] No such file or directory: 'wsl'
+[2026-01-20 18:09:23] [WARNING] 未在WSL中找到conda安装，使用默认路径: /root/miniconda3
+[2026-01-20 18:09:33] [SUCCESS] 方案已删除: GLM-4.7-Flash-TP2
+[2026-01-20 18:09:47] [ERROR] Failed to validate conda path: [Errno 2] No such file or directory: 'wsl'
+[2026-01-20 18:09:47] [WARNING] 未在WSL中找到conda安装，使用默认路径: /root/miniconda3
+[2026-01-20 18:17:49] [INFO] VLLM GUI 服务器启动，端口: 5001
+[2026-01-20 18:17:50] [INFO] nvitop监控已启动
+[2026-01-20 18:17:51] [INFO] nvitop监控已启动
+[2026-01-20 18:17:52] [INFO] 从conda info --base自动检测到conda路径: /mnt/AI-Acer4T/miniconda3
+[2026-01-20 18:17:52] [ERROR] Failed to validate conda path: [Errno 2] No such file or directory: 'wsl'
+[2026-01-20 18:17:52] [WARNING] 未在WSL中找到conda安装，使用默认路径: /root/miniconda3
+[2026-01-20 18:21:43] [INFO] VLLM GUI 服务器启动，端口: 5001
+[2026-01-20 18:21:44] [INFO] nvitop监控已启动
+[2026-01-20 18:21:45] [INFO] nvitop监控已启动
+[2026-01-20 18:21:45] [INFO] nvitop监控已启动
+[2026-01-20 18:21:46] [INFO] 从conda info --base自动检测到conda路径: /mnt/AI-Acer4T/miniconda3
+[2026-01-20 18:21:48] [ERROR] Failed to validate conda path: [Errno 2] No such file or directory: 'wsl'
+[2026-01-20 18:21:50] [INFO] 从conda info --base自动检测到conda路径: /mnt/AI-Acer4T/miniconda3
+[2026-01-20 18:21:55] [ERROR] Failed to validate conda path: [Errno 2] No such file or directory: 'wsl'
+[2026-01-20 18:21:57] [INFO] 从conda info --base自动检测到conda路径: /mnt/AI-Acer4T/miniconda3
+[2026-01-20 18:21:57] [INFO] 启动命令: /bin/bash -c "source /mnt/AI-Acer4T/miniconda3/etc/profile.d/conda.sh 2>/dev/null || true && source ...
+[2026-01-20 18:21:57] [INFO] nvitop监控已启动
+[2026-01-20 18:21:57] [INFO] nvitop监控已停止
+[2026-01-20 18:22:24] [INFO] [0;36m(APIServer pid=20663)[0;0m INFO 01-20 18:22:24 [api_server.py:872] vLLM API server version 0.14.0rc2.dev126+g38bf2ffb2
+[2026-01-20 18:22:24] [INFO] [0;36m(APIServer pid=20663)[0;0m INFO 01-20 18:22:24 [utils.py:267] non-default args: {'model_tag': '/mnt/AI-Acer4T/AI-Chat/models/minimax/MiniMax-M2.1-NVFP4-TYW', 'host': '0.0.0.0', 'port': 8005, 'chat_template': '/mnt/AI-Acer4T/AI-Chat/models/minimax/MiniMax-M2.1-NVFP4-TYW/chat_template.jinja', 'enable_auto_tool_choice': True, 'tool_call_parser': 'minimax_m2', 'model': '/mnt/AI-Acer4T/AI-Chat/models/minimax/MiniMax-M2.1-NVFP4-TYW', 'trust_remote_code': True, 'max_model_len': 128000, 'quantization': 'nvfp4', 'served_model_name': ['VLLM-MODEL'], 'reasoning_parser': 'minimax_m2_append_think', 'tensor_parallel_size': 2, 'all2all_backend': 'pplx', 'kv_cache_dtype': 'fp8', 'max_num_seqs': 256, 'enable_chunked_prefill': True, 'async_scheduling': True}
+[2026-01-20 18:22:24] [INFO] [0;36m(APIServer pid=20663)[0;0m The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+[2026-01-20 18:22:24] [INFO] [0;36m(APIServer pid=20663)[0;0m The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+[2026-01-20 18:22:24] [INFO] [0;36m(APIServer pid=20663)[0;0m INFO 01-20 18:22:24 [model.py:530] Resolved architecture: MiniMaxM2ForCausalLM
+[2026-01-20 18:22:24] [INFO] [0;36m(APIServer pid=20663)[0;0m INFO 01-20 18:22:24 [model.py:1547] Using max model len 128000
+[2026-01-20 18:22:24] [WARNING] [0;36m(APIServer pid=20663)[0;0m WARNING 01-20 18:22:24 [quark_ocp_mx.py:157] AITER is not found or QuarkOCP_MX is not supported on the current platform. QuarkOCP_MX quantization will not be available.
+[2026-01-20 18:22:25] [INFO] [0;36m(APIServer pid=20663)[0;0m INFO 01-20 18:22:25 [cache.py:206] Using fp8 data type to store kv cache. It reduces the GPU memory footprint and boosts the performance. Meanwhile, it may cause accuracy drop without a proper scaling factor.
+[2026-01-20 18:22:25] [INFO] [0;36m(APIServer pid=20663)[0;0m INFO 01-20 18:22:25 [scheduler.py:229] Chunked prefill is enabled with max_num_batched_tokens=8192.
+[2026-01-20 18:22:25] [WARNING] [0;36m(APIServer pid=20663)[0;0m WARNING 01-20 18:22:25 [modelopt.py:1016] Detected ModelOpt NVFP4 checkpoint. Please note that the format is experimental and could change in future.
+[2026-01-20 18:22:25] [INFO] [0;36m(APIServer pid=20663)[0;0m INFO 01-20 18:22:25 [vllm.py:618] Asynchronous scheduling is enabled.
+[2026-01-20 18:22:25] [INFO] [0;36m(APIServer pid=20663)[0;0m INFO 01-20 18:22:25 [vllm.py:625] Disabling NCCL for DP synchronization when using async scheduling.
+[2026-01-20 18:22:25] [INFO] [0;36m(APIServer pid=20663)[0;0m The tokenizer you are loading from '/mnt/AI-Acer4T/AI-Chat/models/minimax/MiniMax-M2.1-NVFP4-TYW' with an incorrect regex pattern: https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503/discussions/84#69121093e8b480e709447d5e. This will lead to incorrect tokenization. You should set the `fix_mistral_regex=True` flag when loading this tokenizer to fix this issue.
+[2026-01-20 18:22:27] [INFO] nvitop监控已启动
+[2026-01-20 18:22:27] [INFO] nvitop监控已启动
+[2026-01-20 18:22:27] [INFO] 服务已停止
+[2026-01-20 18:22:28] [INFO] nvitop监控已启动
+[2026-01-20 18:24:36] [INFO] VLLM GUI 服务器启动，端口: 5001
+[2026-01-20 18:24:36] [INFO] nvitop监控已启动
+[2026-01-20 18:24:37] [INFO] nvitop监控已启动
+[2026-01-20 18:24:37] [INFO] nvitop监控已启动
+[2026-01-20 18:24:38] [INFO] 从conda info --base自动检测到conda路径: /mnt/AI-Acer4T/miniconda3
+[2026-01-20 18:24:41] [INFO] 启动命令: /bin/bash -c "source /mnt/AI-Acer4T/miniconda3/etc/profile.d/conda.sh 2>/dev/null || true && source ...
+[2026-01-20 18:24:41] [INFO] nvitop监控已启动
+[2026-01-20 18:24:41] [INFO] nvitop监控已停止
+[2026-01-20 18:24:43] [INFO] 服务已停止
+[2026-01-20 18:24:43] [INFO] nvitop监控已启动
+[2026-01-20 18:24:44] [INFO] nvitop监控已启动
+[2026-01-20 18:26:44] [SUCCESS] 方案已保存: GLM-4.7-Flash-TP2
+[2026-01-20 18:26:52] [INFO] 启动命令: /bin/bash -c "source /mnt/AI-Acer4T/miniconda3/etc/profile.d/conda.sh 2>/dev/null || true && source ...
+[2026-01-20 18:26:52] [INFO] nvitop监控已启动
+[2026-01-20 18:26:52] [INFO] nvitop监控已停止
+[2026-01-20 18:27:22] [INFO] [0;36m(APIServer pid=23071)[0;0m INFO 01-20 18:27:22 [api_server.py:1351] vLLM API server version 0.13.0
+[2026-01-20 18:27:22] [INFO] [0;36m(APIServer pid=23071)[0;0m INFO 01-20 18:27:22 [utils.py:253] non-default args: {'model_tag': '/mnt/AI-Acer4T/AI-Chat/models/ZhipuAI/GLM-4.7-Flash/', 'host': '0.0.0.0', 'port': 8005, 'chat_template': '/mnt/AI-Acer4T/AI-Chat/models/ZhipuAI/GLM-4.7-REAP-40-W4A16/chat_template.jinja', 'enable_auto_tool_choice': True, 'tool_call_parser': 'glm47', 'model': '/mnt/AI-Acer4T/AI-Chat/models/ZhipuAI/GLM-4.7-Flash/', 'trust_remote_code': True, 'max_model_len': 128000, 'served_model_name': ['VLLM-MODEL'], 'reasoning_parser': 'glm45', 'kv_cache_dtype': 'fp8', 'max_num_seqs': 256, 'async_scheduling': True, 'speculative_config': {'method': 'mtp', 'num_speculative_tokens': 1}}
+[2026-01-20 18:27:22] [ERROR] [0;36m(APIServer pid=23071)[0;0m Traceback (most recent call last):
+[2026-01-20 18:27:22] [INFO] [0;36m(APIServer pid=23071)[0;0m   File "/mnt/AI-Acer4T/miniconda3/envs/vllm-tool/bin/vllm", line 7, in <module>
+[2026-01-20 18:27:22] [INFO] [0;36m(APIServer pid=23071)[0;0m     sys.exit(main())
+[2026-01-20 18:27:22] [INFO] [0;36m(APIServer pid=23071)[0;0m              ^^^^^^
+[2026-01-20 18:27:22] [INFO] [0;36m(APIServer pid=23071)[0;0m   File "/mnt/AI-Acer4T/miniconda3/envs/vllm-tool/lib/python3.12/site-packages/vllm/entrypoints/cli/main.py", line 73, in main
+[2026-01-20 18:27:22] [INFO] [0;36m(APIServer pid=23071)[0;0m     args.dispatch_function(args)
+[2026-01-20 18:27:22] [INFO] [0;36m(APIServer pid=23071)[0;0m   File "/mnt/AI-Acer4T/miniconda3/envs/vllm-tool/lib/python3.12/site-packages/vllm/entrypoints/cli/serve.py", line 60, in cmd
+[2026-01-20 18:27:22] [INFO] [0;36m(APIServer pid=23071)[0;0m     uvloop.run(run_server(args))
+[2026-01-20 18:27:22] [INFO] [0;36m(APIServer pid=23071)[0;0m   File "/mnt/AI-Acer4T/miniconda3/envs/vllm-tool/lib/python3.12/site-packages/uvloop/__init__.py", line 96, in run
+[2026-01-20 18:27:22] [INFO] [0;36m(APIServer pid=23071)[0;0m     return __asyncio.run(
+[2026-01-20 18:27:22] [INFO] [0;36m(APIServer pid=23071)[0;0m            ^^^^^^^^^^^^^^
+[2026-01-20 18:27:22] [INFO] [0;36m(APIServer pid=23071)[0;0m   File "/mnt/AI-Acer4T/miniconda3/envs/vllm-tool/lib/python3.12/asyncio/runners.py", line 195, in run
+[2026-01-20 18:27:22] [INFO] [0;36m(APIServer pid=23071)[0;0m     return runner.run(main)
+[2026-01-20 18:27:22] [INFO] [0;36m(APIServer pid=23071)[0;0m            ^^^^^^^^^^^^^^^^
+[2026-01-20 18:27:22] [INFO] [0;36m(APIServer pid=23071)[0;0m   File "/mnt/AI-Acer4T/miniconda3/envs/vllm-tool/lib/python3.12/asyncio/runners.py", line 118, in run
+[2026-01-20 18:27:22] [INFO] [0;36m(APIServer pid=23071)[0;0m     return self._loop.run_until_complete(task)
+[2026-01-20 18:27:22] [INFO] [0;36m(APIServer pid=23071)[0;0m            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2026-01-20 18:27:22] [INFO] [0;36m(APIServer pid=23071)[0;0m   File "uvloop/loop.pyx", line 1518, in uvloop.loop.Loop.run_until_complete
+[2026-01-20 18:27:22] [INFO] [0;36m(APIServer pid=23071)[0;0m   File "/mnt/AI-Acer4T/miniconda3/envs/vllm-tool/lib/python3.12/site-packages/uvloop/__init__.py", line 48, in wrapper
+[2026-01-20 18:27:22] [INFO] [0;36m(APIServer pid=23071)[0;0m     return await main
+[2026-01-20 18:27:22] [INFO] [0;36m(APIServer pid=23071)[0;0m            ^^^^^^^^^^
+[2026-01-20 18:27:22] [INFO] [0;36m(APIServer pid=23071)[0;0m   File "/mnt/AI-Acer4T/miniconda3/envs/vllm-tool/lib/python3.12/site-packages/vllm/entrypoints/openai/api_server.py", line 1397, in run_server
+[2026-01-20 18:27:22] [INFO] [0;36m(APIServer pid=23071)[0;0m     listen_address, sock = setup_server(args)
+[2026-01-20 18:27:22] [INFO] [0;36m(APIServer pid=23071)[0;0m                            ^^^^^^^^^^^^^^^^^^
+[2026-01-20 18:27:22] [INFO] [0;36m(APIServer pid=23071)[0;0m   File "/mnt/AI-Acer4T/miniconda3/envs/vllm-tool/lib/python3.12/site-packages/vllm/entrypoints/openai/api_server.py", line 1360, in setup_server
+[2026-01-20 18:27:22] [INFO] [0;36m(APIServer pid=23071)[0;0m     validate_api_server_args(args)
+[2026-01-20 18:27:22] [INFO] [0;36m(APIServer pid=23071)[0;0m   File "/mnt/AI-Acer4T/miniconda3/envs/vllm-tool/lib/python3.12/site-packages/vllm/entrypoints/openai/api_server.py", line 1332, in validate_api_server_args
+[2026-01-20 18:27:22] [INFO] [0;36m(APIServer pid=23071)[0;0m     raise KeyError(
+[2026-01-20 18:27:22] [INFO] [0;36m(APIServer pid=23071)[0;0m KeyError: 'invalid tool call parser: glm47 (chose from { deepseek_v3,deepseek_v31,deepseek_v32,ernie45,gigachat3,glm45,granite,granite-20b-fc,hermes,hunyuan_a13b,internlm,jamba,kimi_k2,llama3_json,llama4_json,llama4_pythonic,longcat,minimax,minimax_m2,mistral,olmo3,openai,phi4_mini_json,pythonic,qwen3_coder,qwen3_xml,seed_oss,step3,xlam })'
+[2026-01-20 18:27:23] [INFO] nvitop监控已启动

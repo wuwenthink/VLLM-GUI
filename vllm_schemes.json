@@ -2326,17 +2326,17 @@
     "createdAt": "2026-01-20T09:39:27.292573"
   },
   {
-    "id": 1768877312184,
+    "id": 1768904804519,
     "name": "GLM-4.7-Flash-TP2",
     "config": {
-      "wslPath": "wsl",
-      "condaEnv": "vllm",
+      "wslPath": "",
+      "condaEnv": "vllm-tool",
       "condaPath": "/mnt/AI-Acer4T/miniconda3",
-      "envType": "wsl",
-      "cudaDevices": "0,1",
-      "tensorParallel": 2,
+      "envType": "linux",
+      "cudaDevices": "0",
+      "tensorParallel": 1,
       "pipelineParallelSize": 1,
-      "modelPath": "/mnt/i/AI-Chat/models/ZhipuAI/GLM-4.7-Flash/",
+      "modelPath": "/mnt/AI-Acer4T/AI-Chat/models/ZhipuAI/GLM-4.7-Flash/",
       "quantization": "",
       "dtype": "auto",
       "maxModelLen": "128000",
@@ -2346,7 +2346,7 @@
       "maxNumSequences": 256,
       "maxNumBatchedTokens": 8192,
       "servedModelName": "VLLM-MODEL",
-      "chatTemplate": "/mnt/i/AI-Chat/models/ZhipuAI/GLM-4.7-Flash/chat_template.jinja",
+      "chatTemplate": "/mnt/AI-Acer4T/AI-Chat/models/ZhipuAI/GLM-4.7-REAP-40-W4A16/chat_template.jinja",
       "toolCallParser": "glm47",
       "reasoningParser": "glm45",
       "trustRemoteCode": true,
@@ -2356,6 +2356,16 @@
       "customParams": [
         {
           "name": "--kv-cache-dtype fp8",
+          "value": "",
+          "isFlag": false
+        },
+        {
+          "name": "--speculative-config.method mtp",
+          "value": "",
+          "isFlag": false
+        },
+        {
+          "name": "--speculative-config.num_speculative_tokens 1",
           "value": "",
           "isFlag": false
         }
@@ -2395,15 +2405,10 @@
           "name": "export CUDA_VISIBLE_DEVICES=0,1",
           "value": "",
           "isFlag": true
-        },
-        {
-          "name": "export NCCL_CUMEM_ENABLE=0",
-          "value": "",
-          "isFlag": true
         }
       ]
     },
-    "envType": "wsl",
-    "createdAt": "2026-01-20T10:48:32.184809"
+    "envType": "linux",
+    "createdAt": "2026-01-20T18:26:44.519615"
   }
 ]
