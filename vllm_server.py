@@ -103,8 +103,164 @@ def validate_config(config: dict) -> tuple[bool, str]:
     return True, ""
 
 
+def _find_conda_path_in_wsl() -> str:
+    """在WSL环境中自动检测conda安装路径（通过WSL命令）"""
+    # 首先验证用户配置的路径是否有效，如果无效则自动检测
+    user_configured_path = os.environ.get("CONDA_PATH_CONFIGURED", "").strip()
+    if user_configured_path:
+        # 验证用户配置的路径
+        check_result = subprocess.run(
+            ["wsl", "test", "-f", f"{user_configured_path}/bin/activate"],
+            capture_output=True,
+            text=True,
+            timeout=5
+        )
+        if check_result.returncode == 0:
+            logger.log("info", f"使用用户配置的conda路径: {user_configured_path}")
+            return user_configured_path
+        else:
+            logger.log("warning", f"用户配置的conda路径无效: {user_configured_path}，尝试自动检测...")
+    
+    # 方法1: 获取WSL用户名，构造用户专属路径
+    try:
+        result = subprocess.run(
+            ["wsl", "bash", "-c", "echo $USER"],
+            capture_output=True,
+            text=True,
+            timeout=5
+        )
+        if result.returncode == 0 and result.stdout.strip():
+            username = result.stdout.strip()
+            # 常见用户路径格式
+            user_paths = [
+                f"/home/{username}/miniconda3",
+                f"/home/{username}/anaconda3",
+                f"/home/{username}/conda",
+            ]
+            for path in user_paths:
+                check_result = subprocess.run(
+                    ["wsl", "test", "-f", f"{path}/bin/activate"],
+                    capture_output=True,
+                    text=True,
+                    timeout=5
+                )
+                if check_result.returncode == 0:
+                    logger.log("info", f"从WSL用户路径自动检测到conda路径: {path}")
+                    return path
+    except Exception:
+        pass
+    
+    # 方法2: 获取WSL用户home目录
+    try:
+        result = subprocess.run(
+            ["wsl", "bash", "-c", "echo $HOME"],
+            capture_output=True,
+            text=True,
+            timeout=5
+        )
+        if result.returncode == 0 and result.stdout.strip():
+            home = result.stdout.strip()
+            home_paths = [
+                f"{home}/miniconda3",
+                f"{home}/anaconda3",
+                f"{home}/conda",
+            ]
+            for path in home_paths:
+                check_result = subprocess.run(
+                    ["wsl", "test", "-f", f"{path}/bin/activate"],
+                    capture_output=True,
+                    text=True,
+                    timeout=5
+                )
+                if check_result.returncode == 0:
+                    logger.log("info", f"从WSL HOME目录自动检测到conda路径: {path}")
+                    return path
+    except Exception:
+        pass
+    
+    # 方法3: 使用conda info --base命令（最准确），通过WSL执行
+    try:
+        result = subprocess.run(
+            ["wsl", "conda", "info", "--base"],
+            capture_output=True,
+            text=True,
+            timeout=10
+        )
+        if result.returncode == 0:
+            base_path = result.stdout.strip()
+            # 验证路径是否存在
+            check_result = subprocess.run(
+                ["wsl", "test", "-f", f"{base_path}/bin/activate"],
+                capture_output=True,
+                text=True,
+                timeout=5
+            )
+            if check_result.returncode == 0:
+                logger.log("info", f"从WSL conda info --base自动检测到conda路径: {base_path}")
+                return base_path
+    except Exception:
+        pass
+    
+    # 方法4: 尝试使用which命令在WSL中查找
+    try:
+        result = subprocess.run(
+            ["wsl", "which", "conda"],
+            capture_output=True,
+            text=True,
+            timeout=10
+        )
+        if result.returncode == 0:
+            conda_exe = result.stdout.strip()
+            if "/bin/conda" in conda_exe:
+                base_path = os.path.dirname(os.path.dirname(conda_exe))
+                # 验证路径是否存在
+                check_result = subprocess.run(
+                    ["wsl", "test", "-f", f"{base_path}/bin/activate"],
+                    capture_output=True,
+                    text=True,
+                    timeout=5
+                )
+                if check_result.returncode == 0:
+                    logger.log("info", f"从WSL which conda自动检测到conda路径: {base_path}")
+                    return base_path
+    except Exception:
+        pass
+    
+    # 方法5: 检查WSL环境变量
+    try:
+        result = subprocess.run(
+            ["wsl", "bash", "-c", "echo $CONDA_PREFIX"],
+            capture_output=True,
+            text=True,
+            timeout=5
+        )
+        if result.returncode == 0 and result.stdout.strip():
+            conda_prefix = result.stdout.strip()
+            base_path = os.path.dirname(os.path.dirname(conda_prefix))
+            check_result = subprocess.run(
+                ["wsl", "test", "-f", f"{base_path}/bin/activate"],
+                capture_output=True,
+                text=True,
+                timeout=5
+            )
+            if check_result.returncode == 0:
+                logger.log("info", f"从WSL CONDA_PREFIX自动检测到conda路径: {base_path}")
+                return base_path
+    except Exception:
+        pass
+    
+    # 默认返回 /root/miniconda3（常见默认安装位置）
+    logger.log("warning", f"未在WSL中找到conda安装，使用默认路径: /root/miniconda3")
+    return "/root/miniconda3"
+
+
 def _find_conda_path() -> str:
     """自动检测conda安装路径"""
+    # 如果在Windows上运行且需要使用WSL，通过WSL命令检测conda路径
+    if IS_WINDOWS:
+        return _find_conda_path_in_wsl()
+    
+    # Linux/WSL原生环境下的检测逻辑
     # 方法1: 使用conda info --base命令（最准确）
     try:
         result = subprocess.run(
@@ -425,11 +581,15 @@ class VLLMController:
                 if ec.strip():
                     all_exports.append(ec.strip())
             
+            # 使用conda的完整路径激活环境，避免conda不在PATH中的问题
+            conda_exe = f"{conda_path}/bin/conda"
+            activate_script = f"{conda_path}/bin/activate"
+            # 使用source激活conda环境，避免conda activate需要初始化的限制
             if all_exports:
                 export_str = " && ".join(all_exports)
-                activate_cmd = f"conda activate {conda_env} && {export_str}"
+                activate_cmd = f"source {activate_script} {conda_env} && {export_str}"
             else:
-                activate_cmd = f"conda activate {conda_env}"
+                activate_cmd = f"source {activate_script} {conda_env}"
             
             # 使用vllm serve启动 - 模型路径作为位置参数
             # 从vllm_cmd_str中移除--model参数，将模型路径作为vllm serve的第一个参数
@@ -452,6 +612,7 @@ class VLLMController:
                 serve_cmd_parts.insert(2, model_path_arg)  # 在"vllm" "serve"之后插入模型路径
             
             vllm_start_cmd = " ".join(serve_cmd_parts)
+            # 确保在conda activate之前先source conda.sh初始化conda
             full_command = f'{wsl_path} bash -c "{source_cmd} && {source_conda} && {activate_cmd} && {vllm_start_cmd}"'
         elif env_type == "linux":
             # Linux环境：使用conda activate，在激活后执行export命令
@@ -935,6 +1096,84 @@ def detect_conda():
     })
 
 
+@app.route("/api/validate-conda-path", methods=["POST"])
+def validate_conda_path():
+    """Validate conda path and return valid path (fallback to auto-detected if invalid)"""
+    try:
+        # 获取JSON数据，如果获取失败则使用默认空字典
+        data = request.get_json(force=True, silent=True) or {}
+        
+        user_conda_path = (data.get("condaPath") or "").strip()
+        env_type = data.get("envType", "wsl")
+        
+        # 如果没有用户配置的路径，返回自动检测的路径
+        if not user_conda_path:
+            if env_type == "wsl":
+                valid_path = _find_conda_path_in_wsl()
+            else:
+                valid_path = _find_conda_path()
+            return jsonify({
+                "valid": True,
+                "path": valid_path,
+                "message": "Auto-detected conda path"
+            })
+        
+        # 确定是否是WSL路径（以/开头）
+        is_wsl_path = user_conda_path.startswith('/')
+        
+        # 验证用户提供的路径
+        if env_type == "wsl" or is_wsl_path:
+            # 在WSL中检查路径是否存在
+            result = subprocess.run(
+                ["wsl", "test", "-f", f"{user_conda_path}/bin/activate"],
+                capture_output=True,
+                text=True,
+                timeout=10
+            )
+            if result.returncode == 0:
+                return jsonify({
+                    "valid": True,
+                    "path": user_conda_path,
+                    "message": "User-provided conda path is valid"
+                })
+            else:
+                # 路径无效，自动检测
+                if env_type == "wsl":
+                    auto_path = _find_conda_path_in_wsl()
+                else:
+                    auto_path = _find_conda_path()
+                logger.log("warning", f"User-provided conda path invalid: {user_conda_path}, using auto-detected: {auto_path}")
+                return jsonify({
+                    "valid": False,
+                    "path": auto_path,
+                    "message": f"User-provided path invalid, auto-detected: {auto_path}"
+                })
+        else:
+            # 本地Linux环境
+            activate_path = os.path.join(user_conda_path, "bin", "activate")
+            if os.path.exists(activate_path):
+                return jsonify({
+                    "valid": True,
+                    "path": user_conda_path,
+                    "message": "User-provided conda path is valid"
+                })
+            else:
+                auto_path = _find_conda_path()
+                return jsonify({
+                    "valid": False,
+                    "path": auto_path,
+                    "message": f"User-provided path invalid, auto-detected: {auto_path}"
+                })
+    except Exception as e:
+        logger.log("error", f"Failed to validate conda path: {str(e)}")
+        # 出错时返回WSL自动检测的路径
+        return jsonify({
+            "valid": False,
+            "path": _find_conda_path_in_wsl(),
+            "message": f"Error validating path, using auto-detected"
+        })
+
+
 @app.route("/api/generate-command", methods=["POST"])
 def api_generate_command():
     config = request.json
@@ -944,13 +1183,17 @@ def api_generate_command():
 
 @app.route("/api/run", methods=["POST"])
 def api_run():
-    data = request.json
-    command = data.get("command", "")
-    env_type = data.get("envType", "wsl")
-    if command:
-        vllm_controller.run_command(command, env_type)
-        return jsonify({"success": True, "status": "started"})
-    return jsonify({"success": False, "error": "No command provided"}), 400
+    try:
+        data = request.get_json(force=True, silent=True) or {}
+        command = data.get("command", "")
+        env_type = data.get("envType", "wsl")
+        if command:
+            vllm_controller.run_command(command, env_type)
+            return jsonify({"success": True, "status": "started"})
+        return jsonify({"success": False, "error": "No command provided"}), 400
+    except Exception as e:
+        logger.log("error", f"Failed to run command: {str(e)}")
+        return jsonify({"success": False, "error": str(e)}), 400
 
 
 @app.route("/api/stop", methods=["POST"])

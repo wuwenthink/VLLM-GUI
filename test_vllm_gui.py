@@ -218,8 +218,8 @@ class TestGenerateCommand:
         # Should contain vllm serve with model as positional argument
         assert "vllm serve" in command
         assert "/mnt/i/AI-Chat/models/llama" in command
-        # Should use conda activate
-        assert "conda activate vllm" in command
+        # Should use source activate (避免conda activate需要初始化的问题)
+        assert "source" in command and "activate vllm" in command
         # Should use WSL bash
         assert "wsl bash -c" in command
     

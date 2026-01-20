@@ -5435,7 +5435,7 @@
             }
         };
 
-        window.generateCommand = (configOverride) => {
+        window.generateCommand = async (configOverride) => {
             const config = configOverride || getConfig();
             // Note: No longer validating modelPath - allow command generation even with errors
             // as requested in optimization item 5
@@ -5460,13 +5460,51 @@
                 // We don't need to source conda.sh or use hardcoded python paths
                 // Just use 'conda run -n {condaEnv} python -m vllm.entrypoints.openai.api_server'
                 
-                // If conda path is specified, source conda.sh to ensure conda command is available
-                const condaPath = config.condaPath || currentCondaPath || '';
-                if (condaPath) {
-                    wslCmd.push(`source ${condaPath}/etc/profile.d/conda.sh 2>/dev/null || true`);
+                // 验证并获取有效的conda路径
+                let effectiveCondaPath = '';
+                try {
+                    const validateResponse = await fetch('/api/validate-conda-path', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            condaPath: config.condaPath || '',
+                            envType: currentEnv || 'wsl'
+                        })
+                    });
+                    if (validateResponse.ok) {
+                        const validateData = await validateResponse.json();
+                        effectiveCondaPath = validateData.path || '';
+                        if (!validateData.valid) {
+                            console.log(validateData.message);
+                            // 更新currentCondaPath为自动检测的路径
+                            currentCondaPath = effectiveCondaPath;
+                            // 提示用户配置中的conda路径无效
+                            showToast('Conda路径已自动更新: ' + effectiveCondaPath, 'warning');
+                        }
+                    } else {
+                        // API返回错误，使用当前检测的路径
+                        console.log('API returned error, using currentCondaPath');
+                        effectiveCondaPath = currentCondaPath || '';
+                    }
+                } catch (e) {
+                    console.error('Failed to validate conda path:', e);
+                    // 回退到当前检测的路径
+                    effectiveCondaPath = currentCondaPath || '';
                 }
-                // Activate conda environment
-                wslCmd.push(`conda activate ${condaEnv}`);
+                
+                // 如果还是没有有效路径，尝试从用户配置或当前检测中获取
+                if (!effectiveCondaPath) {
+                    effectiveCondaPath = config.condaPath || currentCondaPath || '';
+                }
+                
+                if (effectiveCondaPath) {
+                    wslCmd.push(`source ${effectiveCondaPath}/etc/profile.d/conda.sh 2>/dev/null || true`);
+                    // 使用source activate避免conda activate需要初始化的问题
+                    wslCmd.push(`source ${effectiveCondaPath}/bin/activate ${condaEnv}`);
+                } else {
+                    // 如果没有condaPath，使用默认的conda activate
+                    wslCmd.push(`conda activate ${condaEnv}`);
+                }
                 
                 // Add CUDA_VISIBLE_DEVICES export AFTER setting up conda
                 if (cudaDevices) {
@@ -5649,12 +5687,46 @@
                 let allParts = [];
                 // Use conda run - no need for hardcoded python paths or conda activate
                 
-                // If conda path is specified, source conda.sh to ensure conda command is available
-                if (condaPath) {
-                    allParts.push(`source ${condaPath}/etc/profile.d/conda.sh 2>/dev/null || true`);
+                // 验证并获取有效的conda路径
+                let effectiveCondaPath = '';
+                try {
+                    const validateResponse = await fetch('/api/validate-conda-path', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            condaPath: config.condaPath || '',
+                            envType: currentEnv || 'linux'
+                        })
+                    });
+                    if (validateResponse.ok) {
+                        const validateData = await validateResponse.json();
+                        effectiveCondaPath = validateData.path || '';
+                        if (!validateData.valid) {
+                            console.log(validateData.message);
+                            // 更新currentCondaPath为自动检测的路径
+                            currentCondaPath = effectiveCondaPath;
+                        }
+                    } else {
+                        console.log('API returned error, using currentCondaPath');
+                        effectiveCondaPath = currentCondaPath || '';
+                    }
+                } catch (e) {
+                    console.error('Failed to validate conda path:', e);
+                    effectiveCondaPath = config.condaPath || currentCondaPath || '';
                 }
-                // Activate conda environment
-                allParts.push(`conda activate ${config.condaEnv}`);
+                
+                if (!effectiveCondaPath) {
+                    effectiveCondaPath = config.condaPath || currentCondaPath || '';
+                }
+                
+                if (effectiveCondaPath) {
+                    allParts.push(`source ${effectiveCondaPath}/etc/profile.d/conda.sh 2>/dev/null || true`);
+                    // 使用source activate避免conda activate需要初始化的问题
+                    allParts.push(`source ${effectiveCondaPath}/bin/activate ${config.condaEnv}`);
+                } else {
+                    // 如果没有condaPath，使用默认的conda activate
+                    allParts.push(`conda activate ${config.condaEnv}`);
+                }
                 
                 if (exportPart) allParts.push(exportPart);
                 allParts.push(...quickParamsParts);
@@ -5690,7 +5762,7 @@ ${command}`;
                 return;
             }
 
-            const command = generateCommand();
+            const command = await generateCommand();
             if (!command) {
                 showToast('请先生成命令', 'warning');
                 return;
@@ -6209,7 +6281,7 @@ ${vllmArgs.replace('python -m', '$PYTHON_PATH -m')}
             }
         };
 
-        const previewScheme = (id) => {
+        const previewScheme = async (id) => {
             const scheme = schemes.find(s => s.id === id);
             if (scheme) {
                 // Temporarily set currentEnv to scheme's envType
@@ -6217,7 +6289,7 @@ ${vllmArgs.replace('python -m', '$PYTHON_PATH -m')}
                 currentEnv = scheme.envType || scheme.config.envType || 'wsl';
                 
                 // Generate command preview
-                const command = generateCommand(scheme.config);
+                const command = await generateCommand(scheme.config);
                 
                 // Restore original env
                 currentEnv = originalEnv;
