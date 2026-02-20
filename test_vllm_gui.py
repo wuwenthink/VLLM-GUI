@@ -12,6 +12,7 @@ Tests cover:
 import os
 import sys
 import subprocess
+import signal
 import tempfile
 from unittest.mock import MagicMock, patch
 import pytest
@@ -444,21 +445,25 @@ class TestVLLMControllerStop:
             self.mock_socketio.emit.assert_any_call("status", {"running": False})
             assert self.controller.is_running is False
     
+    @patch('os.killpg')
+    @patch('os.getpgid')
     @patch('subprocess.run')
     @patch('subprocess.Popen')
-    def test_stop_linux_process(self, mock_popen, mock_run):
+    def test_stop_linux_process(self, mock_popen, mock_run, mock_getpgid, mock_killpg):
         """Test stopping process on Linux."""
         with patch('vllm_server.IS_WINDOWS', False):
             mock_process = MagicMock()
             mock_process.pid = 12345
+            mock_process.wait.return_value = 0
+            mock_getpgid.return_value = 12345
             self.controller.process = mock_process
             self.controller.is_running = True
             
             self.controller.stop()
             
-            # Verify Linux termination commands
-            mock_run.assert_any_call(["pkill", "-9", "-P", str(mock_process.pid)], shell=False, capture_output=True)
-            mock_run.assert_any_call(["kill", "-9", str(mock_process.pid)], shell=False, capture_output=True)
+            # Verify Linux uses os.killpg to terminate entire process group
+            mock_getpgid.assert_called_with(12345)
+            mock_killpg.assert_called_once_with(12345, signal.SIGKILL)
             self.mock_socketio.emit.assert_any_call("status", {"running": False})
             assert self.controller.is_running is False
     

@@ -863,6 +863,7 @@ class VLLMController:
                     encoding='utf-8',
                     errors='replace',
                     env=env,
+                    start_new_session=True,  # 创建新会话，确保可以终止整个进程组
                 )
             else:
                 # Windows或WSL环境
@@ -880,6 +881,7 @@ class VLLMController:
                     errors='replace',
                     env=env,
                     startupinfo=startupinfo,
+                    start_new_session=True,
                 )
 
             self.is_running = True
@@ -948,13 +950,14 @@ class VLLMController:
             else:
                 # Linux/WSL: 终止整个进程组
                 try:
-                    # 首先尝试使用 pkill 终止进程组
-                    subprocess.run(["pkill", "-9", "-P", str(proc.pid)], shell=False, capture_output=True)
-                    # 然后终止主进程
-                    subprocess.run(["kill", "-9", str(proc.pid)], shell=False, capture_output=True)
-                except (ProcessLookupError, PermissionError, OSError):
-                    # 如果失败，尝试直接终止进程
-                    subprocess.run(["kill", "-9", str(proc.pid)], shell=False, capture_output=True, stderr=subprocess.DEVNULL)
+                    # 使用 os.killpg 终止整个进程组（包含主进程和所有子进程）
+                    os.killpg(os.getpgid(proc.pid), signal.SIGKILL)
+                except (ProcessLookupError, PermissionError, OSError) as e:
+                    # 如果 killpg 失败，尝试直接终止进程
+                    try:
+                        subprocess.run(["kill", "-9", str(proc.pid)], shell=False, capture_output=True, stderr=subprocess.DEVNULL)
+                    except Exception:
+                        pass
             
             # 等待进程完全终止
             try:

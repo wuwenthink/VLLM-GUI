@@ -6197,7 +6197,7 @@ ${vllmArgs.replace('python -m', '$PYTHON_PATH -m')}
                 const config = getConfig();
                 config.envType = currentEnv;
 
-                schemes[schemeIndex] = {
+                const updatedScheme = {
                     id: schemes[schemeIndex].id,
                     name: schemes[schemeIndex].name,
                     config: config,
@@ -6205,9 +6205,32 @@ ${vllmArgs.replace('python -m', '$PYTHON_PATH -m')}
                     envType: currentEnv
                 };
 
-                updateSchemeList();
-                showToast(`方案 "${schemes[schemeIndex].name}" 已更新`, 'success');
-                log(`配置方案 "${schemes[schemeIndex].name}" 已更新`, 'success');
+                // Update local array first
+                schemes[schemeIndex] = updatedScheme;
+
+                // Save to server
+                try {
+                    const response = await fetch('/api/schemes', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            scheme: updatedScheme
+                        })
+                    });
+
+                    const result = await response.json();
+
+                    if (result.success) {
+                        updateSchemeList();
+                        showToast(`方案 "${updatedScheme.name}" 已更新`, 'success');
+                        log(`配置方案 "${updatedScheme.name}" 已更新`, 'success');
+                    } else {
+                        showToast(result.message || '保存失败', 'error');
+                    }
+                } catch (e) {
+                    showToast('保存失败: ' + e.message, 'error');
+                }
+
                 closeSaveSchemeDialog();
             }
         };

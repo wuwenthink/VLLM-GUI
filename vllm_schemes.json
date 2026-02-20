@@ -1051,6 +1051,11 @@
           "isFlag": false
         },
         {
+          "name": "--mm-processor-cache-type shm",
+          "value": "",
+          "isFlag": false
+        },
+        {
           "name": "--allowed-local-media-path /",
           "value": "",
           "isFlag": false
@@ -1059,39 +1064,9 @@
           "name": "--mm-encoder-tp-mode data",
           "value": "",
           "isFlag": false
-        },
-        {
-          "name": "--mm-processor-cache-type shm",
-          "value": "",
-          "isFlag": false
         }
       ],
       "quickParams": [
-        {
-          "name": "export NCCL_IB_DISABLE=0",
-          "value": "",
-          "isFlag": true
-        },
-        {
-          "name": "export NCCL_NVLS_ENABLE=1",
-          "value": "",
-          "isFlag": true
-        },
-        {
-          "name": "export NCCL_P2P_DISABLE=0",
-          "value": "",
-          "isFlag": true
-        },
-        {
-          "name": "export NCCL_SHM_DISABLE=0",
-          "value": "",
-          "isFlag": true
-        },
-        {
-          "name": "export SAFETENSORS_FAST_GPU=1",
-          "value": "",
-          "isFlag": true
-        },
         {
           "name": "export CUDA_DEVICE_ORDER=PCI_BUS_ID",
           "value": "",
@@ -1105,7 +1080,7 @@
       ]
     },
     "envType": "linux",
-    "createdAt": "2026-01-18T00:55:25.272863"
+    "createdAt": "2026-02-06T15:17:41.901360"
   },
   {
     "id": 1768669056700,
@@ -1115,10 +1090,10 @@
       "condaEnv": "vllm",
       "condaPath": "/mnt/AI-Acer4T/miniconda3",
       "envType": "linux",
-      "cudaDevices": "0,1",
-      "tensorParallel": 2,
+      "cudaDevices": "0",
+      "tensorParallel": 1,
       "pipelineParallelSize": 1,
-      "modelPath": "/mnt/AI-Acer4T/AI-Chat/models/ZhipuAI/GLM-4.7-REAP-40-W4A16",
+      "modelPath": "/mnt/AI-Acer4T/AI-Chat/models/ZhipuAI/GLM-4.7-Flash/",
       "quantization": "",
       "dtype": "auto",
       "maxModelLen": "128000",
@@ -1140,48 +1115,33 @@
           "name": "--kv-cache-dtype fp8",
           "value": "",
           "isFlag": false
+        },
+        {
+          "name": "--speculative-config.method mtp",
+          "value": "",
+          "isFlag": false
+        },
+        {
+          "name": "--speculative-config.num_speculative_tokens 1",
+          "value": "",
+          "isFlag": false
         }
       ],
       "quickParams": [
-        {
-          "name": "export NCCL_IB_DISABLE=0",
-          "value": "",
-          "isFlag": true
-        },
-        {
-          "name": "export NCCL_NVLS_ENABLE=1",
-          "value": "",
-          "isFlag": true
-        },
-        {
-          "name": "export NCCL_P2P_DISABLE=0",
-          "value": "",
-          "isFlag": true
-        },
-        {
-          "name": "export NCCL_SHM_DISABLE=0",
-          "value": "",
-          "isFlag": true
-        },
-        {
-          "name": "export SAFETENSORS_FAST_GPU=1",
-          "value": "",
-          "isFlag": true
-        },
         {
           "name": "export CUDA_DEVICE_ORDER=PCI_BUS_ID",
           "value": "",
           "isFlag": true
         },
         {
-          "name": "export CUDA_VISIBLE_DEVICES=0,1",
+          "name": "export CUDA_VISIBLE_DEVICES=0",
           "value": "",
           "isFlag": true
         }
       ]
     },
     "envType": "linux",
-    "createdAt": "2026-01-18T00:57:36.700969"
+    "createdAt": "2026-02-06T15:34:18.619110"
   },
   {
     "id": 1768669153057,
@@ -2017,88 +1977,7 @@
       "cudaDevices": "0,1",
       "tensorParallel": 2,
       "pipelineParallelSize": 1,
-      "modelPath": "/mnt/AI-Acer4T/AI-Chat/models/Qwen3//mnt/AI-Acer4T/AI-Chat/models/Qwen3/Qwen3-VL-235B-A22B-Thinking-AWQ/",
-      "quantization": "",
-      "dtype": "auto",
-      "maxModelLen": "1010000",
-      "host": "0.0.0.0",
-      "port": 8005,
-      "gpuMemoryUtilization": 0.9,
-      "maxNumSequences": 256,
-      "maxNumBatchedTokens": 8192,
-      "servedModelName": "VLLM-MODEL",
-      "chatTemplate": "",
-      "toolCallParser": "",
-      "reasoningParser": "",
-      "trustRemoteCode": true,
-      "enableExpertParallel": true,
-      "enableAutoToolChoice": false,
-      "asyncScheduling": true,
-      "customParams": [
-        {
-          "name": "--disable-log-requests",
-          "value": "",
-          "isFlag": false
-        }
-      ],
-      "quickParams": [
-        {
-          "name": "export NCCL_IB_DISABLE=0",
-          "value": "",
-          "isFlag": true
-        },
-        {
-          "name": "export NCCL_NVLS_ENABLE=1",
-          "value": "",
-          "isFlag": true
-        },
-        {
-          "name": "export NCCL_P2P_DISABLE=0",
-          "value": "",
-          "isFlag": true
-        },
-        {
-          "name": "export NCCL_SHM_DISABLE=0",
-          "value": "",
-          "isFlag": true
-        },
-        {
-          "name": "export SAFETENSORS_FAST_GPU=1",
-          "value": "",
-          "isFlag": true
-        },
-        {
-          "name": "export CUDA_DEVICE_ORDER=PCI_BUS_ID",
-          "value": "",
-          "isFlag": true
-        },
-        {
-          "name": "export CUDA_VISIBLE_DEVICES=0,1",
-          "value": "",
-          "isFlag": true
-        },
-        {
-          "name": "export VLLM_ATTENTION_BACKEND=DUAL_CHUNK_FLASH_ATTN VLLM_USE_V1=0",
-          "value": "",
-          "isFlag": true
-        }
-      ]
-    },
-    "envType": "linux",
-    "createdAt": "2026-01-18T23:34:22.436934"
-  },
-  {
-    "id": 1768754313252,
-    "name": "Qwen3-VL-32B-Instruct-TP2",
-    "config": {
-      "wslPath": "",
-      "condaEnv": "vllm",
-      "condaPath": "/mnt/AI-Acer4T/miniconda3",
-      "envType": "linux",
-      "cudaDevices": "0,1",
-      "tensorParallel": 2,
-      "pipelineParallelSize": 1,
-      "modelPath": "/mnt/AI-Acer4T/AI-Chat/models/Qwen3/Qwen3-VL-32B-Instruct",
+      "modelPath": "/mnt/AI-Acer4T/AI-Chat/models/Qwen3/Qwen3-VL-235B-A22B-Thinking-AWQ/",
       "quantization": "",
       "dtype": "auto",
       "maxModelLen": "128000",
@@ -2109,73 +1988,43 @@
       "maxNumBatchedTokens": 8192,
       "servedModelName": "VLLM-MODEL",
       "chatTemplate": "",
-      "toolCallParser": "",
+      "toolCallParser": "hermes",
       "reasoningParser": "",
       "trustRemoteCode": true,
       "enableExpertParallel": true,
-      "enableAutoToolChoice": false,
+      "enableAutoToolChoice": true,
       "asyncScheduling": true,
       "customParams": [
         {
-          "name": "--disable-log-request \\",
+          "name": "--disable-log-requests",
           "value": "",
           "isFlag": false
         }
       ],
       "quickParams": [
         {
-          "name": "export NCCL_IB_DISABLE=0",
-          "value": "",
-          "isFlag": true
-        },
-        {
-          "name": "export NCCL_NVLS_ENABLE=1",
-          "value": "",
-          "isFlag": true
-        },
-        {
-          "name": "export NCCL_P2P_DISABLE=0",
-          "value": "",
-          "isFlag": true
-        },
-        {
-          "name": "export NCCL_SHM_DISABLE=0",
-          "value": "",
-          "isFlag": true
-        },
-        {
-          "name": "export SAFETENSORS_FAST_GPU=1",
-          "value": "",
-          "isFlag": true
-        },
-        {
           "name": "export CUDA_DEVICE_ORDER=PCI_BUS_ID",
-          "value": "",
-          "isFlag": true
-        },
-        {
-          "name": "export CUDA_VISIBLE_DEVICES=0,1",
           "value": "",
           "isFlag": true
         }
       ]
     },
     "envType": "linux",
-    "createdAt": "2026-01-19T00:38:33.252409"
+    "createdAt": "2026-02-07T00:14:15.661530"
   },
   {
     "id": 1768754397836,
     "name": "Qwen3-VL-30B-A3B-Instruct",
     "config": {
       "wslPath": "",
-      "condaEnv": "vllm-tool",
+      "condaEnv": "vllm",
       "condaPath": "/mnt/AI-Acer4T/miniconda3",
       "envType": "linux",
-      "cudaDevices": "0,1",
-      "tensorParallel": 2,
+      "cudaDevices": "0",
+      "tensorParallel": 1,
       "pipelineParallelSize": 1,
       "modelPath": "/mnt/AI-Acer4T/AI-Chat/models/Qwen3/Qwen3-VL-30B-A3B-Instruct",
-      "quantization": "awq",
+      "quantization": "",
       "dtype": "auto",
       "maxModelLen": "128000",
       "host": "0.0.0.0",
@@ -2187,80 +2036,60 @@
       "chatTemplate": "",
       "toolCallParser": "",
       "reasoningParser": "",
-      "trustRemoteCode": true,
-      "enableExpertParallel": true,
+      "trustRemoteCode": false,
+      "enableExpertParallel": false,
       "enableAutoToolChoice": false,
       "asyncScheduling": true,
       "customParams": [
         {
-          "name": "--disable-log-requests",
+          "name": "--mm-encoder-tp-mode data",
+          "value": "",
+          "isFlag": false
+        },
+        {
+          "name": "--limit-mm-per-prompt.video 0",
           "value": "",
           "isFlag": false
         }
       ],
       "quickParams": [
         {
-          "name": "export NCCL_IB_DISABLE=0",
-          "value": "",
-          "isFlag": true
-        },
-        {
-          "name": "export NCCL_NVLS_ENABLE=1",
-          "value": "",
-          "isFlag": true
-        },
-        {
-          "name": "export NCCL_P2P_DISABLE=0",
-          "value": "",
-          "isFlag": true
-        },
-        {
-          "name": "export NCCL_SHM_DISABLE=0",
-          "value": "",
-          "isFlag": true
-        },
-        {
-          "name": "export SAFETENSORS_FAST_GPU=1",
-          "value": "",
-          "isFlag": true
-        },
-        {
           "name": "export CUDA_DEVICE_ORDER=PCI_BUS_ID",
           "value": "",
           "isFlag": true
         },
         {
-          "name": "export CUDA_VISIBLE_DEVICES=0,1",
+          "name": "export CUDA_VISIBLE_DEVICES=0",
           "value": "",
           "isFlag": true
         }
       ]
     },
     "envType": "linux",
-    "createdAt": "2026-01-19T00:39:57.836254"
+    "createdAt": "2026-02-06T14:20:00.828887"
   },
   {
     "id": 1768873167292,
     "name": "GLM-4.7-Flash-GPU0",
     "config": {
       "wslPath": "wsl",
-      "condaEnv": "vllm",
+      "condaEnv": "vllm-tool",
       "condaPath": "/mnt/AI-Acer4T/miniconda3",
       "envType": "wsl",
       "cudaDevices": "0",
       "tensorParallel": 1,
       "pipelineParallelSize": 1,
-      "modelPath": "/mnt/i/models/ZhipuAI/GLM-4.7-Flash/",
+      "modelPath": "/mnt/i/AI-Chat/models/ZhipuAI/GLM-4.7-Flash/",
       "quantization": "",
       "dtype": "auto",
-      "maxModelLen": "64000",
+      "maxModelLen": "128000",
       "host": "0.0.0.0",
       "port": 8005,
       "gpuMemoryUtilization": 0.9,
       "maxNumSequences": 256,
       "maxNumBatchedTokens": 8192,
       "servedModelName": "VLLM-MODEL",
-      "chatTemplate": "/mnt/AI-Acer4T/AI-Chat/models/ZhipuAI/GLM-4.7-REAP-40-W4A16/chat_template.jinja",
+      "chatTemplate": "/mnt/i/AI-Chat/models/ZhipuAI/GLM-4.7-Flash/chat_template.jinja",
       "toolCallParser": "glm47",
       "reasoningParser": "glm45",
       "trustRemoteCode": true,
@@ -2268,11 +2097,6 @@
       "enableAutoToolChoice": true,
       "asyncScheduling": true,
       "customParams": [
-        {
-          "name": "--kv-cache-dtype fp8",
-          "value": "",
-          "isFlag": false
-        },
         {
           "name": "--speculative-config.method mtp",
           "value": "",
@@ -2286,44 +2110,19 @@
       ],
       "quickParams": [
         {
-          "name": "export NCCL_IB_DISABLE=0",
-          "value": "",
-          "isFlag": true
-        },
-        {
-          "name": "export NCCL_NVLS_ENABLE=1",
-          "value": "",
-          "isFlag": true
-        },
-        {
-          "name": "export NCCL_P2P_DISABLE=0",
-          "value": "",
-          "isFlag": true
-        },
-        {
-          "name": "export NCCL_SHM_DISABLE=0",
-          "value": "",
-          "isFlag": true
-        },
-        {
-          "name": "export SAFETENSORS_FAST_GPU=1",
-          "value": "",
-          "isFlag": true
-        },
-        {
           "name": "export CUDA_DEVICE_ORDER=PCI_BUS_ID",
           "value": "",
           "isFlag": true
         },
         {
-          "name": "export CUDA_VISIBLE_DEVICES=0,1",
+          "name": "export CUDA_VISIBLE_DEVICES=0",
           "value": "",
           "isFlag": true
         }
       ]
     },
     "envType": "wsl",
-    "createdAt": "2026-01-20T09:39:27.292573"
+    "createdAt": "2026-02-15T00:09:06.696287"
   },
   {
     "id": 1768904804519,
@@ -2410,5 +2209,641 @@
     },
     "envType": "linux",
     "createdAt": "2026-01-20T18:26:44.519615"
+  },
+  {
+    "id": 1770271388158,
+    "name": "Qwen3-Coder-Next-FP8",
+    "config": {
+      "wslPath": "",
+      "condaEnv": "vllm",
+      "condaPath": "/mnt/AI-Acer4T/miniconda3",
+      "envType": "linux",
+      "cudaDevices": "0,1",
+      "tensorParallel": 2,
+      "pipelineParallelSize": 1,
+      "modelPath": "/mnt/AI-Acer4T/AI-Chat/models/Qwen3/Qwen3-Coder-Next-FP8",
+      "quantization": "",
+      "dtype": "auto",
+      "maxModelLen": "128000",
+      "host": "0.0.0.0",
+      "port": 8005,
+      "gpuMemoryUtilization": 0.9,
+      "maxNumSequences": 256,
+      "maxNumBatchedTokens": 8192,
+      "servedModelName": "VLLM-MODEL",
+      "chatTemplate": "",
+      "toolCallParser": "qwen3_coder",
+      "reasoningParser": "",
+      "trustRemoteCode": true,
+      "enableExpertParallel": false,
+      "enableAutoToolChoice": true,
+      "asyncScheduling": true,
+      "customParams": [
+        {
+          "name": "--kv-cache-dtype fp8",
+          "value": "",
+          "isFlag": false
+        }
+      ],
+      "quickParams": [
+        {
+          "name": "export NCCL_IB_DISABLE=0",
+          "value": "",
+          "isFlag": true
+        },
+        {
+          "name": "export NCCL_NVLS_ENABLE=1",
+          "value": "",
+          "isFlag": true
+        },
+        {
+          "name": "export NCCL_P2P_DISABLE=0",
+          "value": "",
+          "isFlag": true
+        },
+        {
+          "name": "export NCCL_SHM_DISABLE=0",
+          "value": "",
+          "isFlag": true
+        },
+        {
+          "name": "export SAFETENSORS_FAST_GPU=1",
+          "value": "",
+          "isFlag": true
+        },
+        {
+          "name": "export CUDA_DEVICE_ORDER=PCI_BUS_ID",
+          "value": "",
+          "isFlag": true
+        },
+        {
+          "name": "export CUDA_VISIBLE_DEVICES=0,1",
+          "value": "",
+          "isFlag": true
+        }
+      ]
+    },
+    "envType": "linux",
+    "createdAt": "2026-02-06T11:57:52.823956"
+  },
+  {
+    "id": 1770358815016,
+    "name": "Qwen3-VL-30B-A3B-Instruct-单卡",
+    "config": {
+      "wslPath": "",
+      "condaEnv": "vllm-tool",
+      "condaPath": "/mnt/AI-Acer4T/miniconda3",
+      "envType": "linux",
+      "cudaDevices": "0",
+      "tensorParallel": 1,
+      "pipelineParallelSize": 1,
+      "modelPath": "/mnt/AI-Acer4T/AI-Chat/models/Qwen3/Qwen3-VL-30B-A3B-Instruct",
+      "quantization": "",
+      "dtype": "auto",
+      "maxModelLen": "128000",
+      "host": "0.0.0.0",
+      "port": 8005,
+      "gpuMemoryUtilization": 0.9,
+      "maxNumSequences": 256,
+      "maxNumBatchedTokens": 8192,
+      "servedModelName": "VLLM-MODEL",
+      "chatTemplate": "",
+      "toolCallParser": "",
+      "reasoningParser": "",
+      "trustRemoteCode": false,
+      "enableExpertParallel": false,
+      "enableAutoToolChoice": false,
+      "asyncScheduling": true,
+      "customParams": [
+        {
+          "name": "--mm-encoder-tp-mode data",
+          "value": "",
+          "isFlag": false
+        },
+        {
+          "name": "--limit-mm-per-prompt.video 0",
+          "value": "",
+          "isFlag": false
+        }
+      ],
+      "quickParams": [
+        {
+          "name": "export CUDA_DEVICE_ORDER=PCI_BUS_ID",
+          "value": "",
+          "isFlag": true
+        },
+        {
+          "name": "export CUDA_VISIBLE_DEVICES=0",
+          "value": "",
+          "isFlag": true
+        }
+      ]
+    },
+    "envType": "linux",
+    "createdAt": "2026-02-06T14:24:45.098618"
+  },
+  {
+    "id": 1770359043728,
+    "name": "Qwen3-VL-32B-Instruct- fp8-单卡",
+    "config": {
+      "wslPath": "",
+      "condaEnv": "vllm-tool",
+      "condaPath": "/mnt/AI-Acer4T/miniconda3",
+      "envType": "linux",
+      "cudaDevices": "1",
+      "tensorParallel": 1,
+      "pipelineParallelSize": 1,
+      "modelPath": "/mnt/AI-Acer4T/AI-Chat/models/Qwen3/Qwen3-VL-32B-Instruct-FP8",
+      "quantization": "fp8",
+      "dtype": "auto",
+      "maxModelLen": "128000",
+      "host": "0.0.0.0",
+      "port": 8006,
+      "gpuMemoryUtilization": 0.9,
+      "maxNumSequences": 256,
+      "maxNumBatchedTokens": 8192,
+      "servedModelName": "VLLM-MODEL-VL",
+      "chatTemplate": "",
+      "toolCallParser": "hermes",
+      "reasoningParser": "qwen3",
+      "trustRemoteCode": true,
+      "enableExpertParallel": false,
+      "enableAutoToolChoice": true,
+      "asyncScheduling": true,
+      "customParams": [
+        {
+          "name": "--mm-encoder-tp-mode data",
+          "value": "",
+          "isFlag": false
+        },
+        {
+          "name": "--limit-mm-per-prompt.video 0",
+          "value": "",
+          "isFlag": false
+        }
+      ],
+      "quickParams": [
+        {
+          "name": "export CUDA_DEVICE_ORDER=PCI_BUS_ID",
+          "value": "",
+          "isFlag": true
+        }
+      ]
+    },
+    "envType": "linux",
+    "createdAt": "2026-02-07T11:49:51.276969"
+  },
+  {
+    "id": 1770362618362,
+    "name": "GLM-4.7-Flash-单卡",
+    "config": {
+      "wslPath": "",
+      "condaEnv": "vllm",
+      "condaPath": "/mnt/AI-Acer4T/miniconda3",
+      "envType": "linux",
+      "cudaDevices": "0",
+      "tensorParallel": 1,
+      "pipelineParallelSize": 1,
+      "modelPath": "/mnt/AI-Acer4T/AI-Chat/models/ZhipuAI/GLM-4.7-Flash",
+      "quantization": "",
+      "dtype": "auto",
+      "maxModelLen": "128000",
+      "host": "0.0.0.0",
+      "port": 8005,
+      "gpuMemoryUtilization": 0.9,
+      "maxNumSequences": 256,
+      "maxNumBatchedTokens": 8192,
+      "servedModelName": "VLLM-MODEL",
+      "chatTemplate": "/mnt/AI-Acer4T/AI-Chat/models/ZhipuAI/GLM-4.7-Flash/chat_template.jinja",
+      "toolCallParser": "glm47",
+      "reasoningParser": "glm45",
+      "trustRemoteCode": true,
+      "enableExpertParallel": false,
+      "enableAutoToolChoice": true,
+      "asyncScheduling": true,
+      "customParams": [
+        {
+          "name": "--speculative-config.method mtp",
+          "value": "",
+          "isFlag": false
+        },
+        {
+          "name": "--speculative-config.num_speculative_tokens 1",
+          "value": "",
+          "isFlag": false
+        }
+      ],
+      "quickParams": [
+        {
+          "name": "export CUDA_DEVICE_ORDER=PCI_BUS_ID",
+          "value": "",
+          "isFlag": true
+        },
+        {
+          "name": "export CUDA_VISIBLE_DEVICES=0",
+          "value": "",
+          "isFlag": true
+        }
+      ]
+    },
+    "envType": "linux",
+    "createdAt": "2026-02-06T15:54:01.790930"
+  },
+  {
+    "id": 1770369030767,
+    "name": "Qwen3-Coder-Next-AWQ-4bit-单卡",
+    "config": {
+      "wslPath": "",
+      "condaEnv": "vllm",
+      "condaPath": "/mnt/AI-Acer4T/miniconda3",
+      "envType": "linux",
+      "cudaDevices": "0",
+      "tensorParallel": 1,
+      "pipelineParallelSize": 1,
+      "modelPath": "/mnt/AI-Acer4T/AI-Chat/models/Qwen3/Qwen3-Coder-Next-AWQ-4bit",
+      "quantization": "",
+      "dtype": "auto",
+      "maxModelLen": "128000",
+      "host": "0.0.0.0",
+      "port": 8005,
+      "gpuMemoryUtilization": 0.9,
+      "maxNumSequences": 256,
+      "maxNumBatchedTokens": 8192,
+      "servedModelName": "VLLM-MODEL",
+      "chatTemplate": "",
+      "toolCallParser": "qwen3_coder",
+      "reasoningParser": "",
+      "trustRemoteCode": true,
+      "enableExpertParallel": false,
+      "enableAutoToolChoice": true,
+      "asyncScheduling": true,
+      "customParams": [
+        {
+          "name": "--kv-cache-dtype fp8",
+          "value": "",
+          "isFlag": false
+        }
+      ],
+      "quickParams": [
+        {
+          "name": "export CUDA_DEVICE_ORDER=PCI_BUS_ID",
+          "value": "",
+          "isFlag": true
+        },
+        {
+          "name": "export CUDA_VISIBLE_DEVICES=0",
+          "value": "",
+          "isFlag": true
+        }
+      ]
+    },
+    "envType": "linux",
+    "createdAt": "2026-02-06T17:27:11.583681"
+  },
+  {
+    "id": 1770371437490,
+    "name": "Qwen3-Coder-Next-AWQ-4bit-TP2",
+    "config": {
+      "wslPath": "",
+      "condaEnv": "vllm",
+      "condaPath": "/mnt/AI-Acer4T/miniconda3",
+      "envType": "linux",
+      "cudaDevices": "0,1",
+      "tensorParallel": 2,
+      "pipelineParallelSize": 1,
+      "modelPath": "/mnt/AI-Acer4T/AI-Chat/models/Qwen3/Qwen3-Coder-Next-AWQ-4bit",
+      "quantization": "",
+      "dtype": "auto",
+      "maxModelLen": "128000",
+      "host": "0.0.0.0",
+      "port": 8005,
+      "gpuMemoryUtilization": 0.9,
+      "maxNumSequences": 256,
+      "maxNumBatchedTokens": 8192,
+      "servedModelName": "VLLM-MODEL",
+      "chatTemplate": "",
+      "toolCallParser": "qwen3_coder",
+      "reasoningParser": "",
+      "trustRemoteCode": true,
+      "enableExpertParallel": false,
+      "enableAutoToolChoice": true,
+      "asyncScheduling": true,
+      "customParams": [
+        {
+          "name": "--kv-cache-dtype fp8",
+          "value": "",
+          "isFlag": false
+        }
+      ],
+      "quickParams": [
+        {
+          "name": "export CUDA_DEVICE_ORDER=PCI_BUS_ID",
+          "value": "",
+          "isFlag": true
+        }
+      ]
+    },
+    "envType": "linux",
+    "createdAt": "2026-02-06T17:50:37.490746"
+  },
+  {
+    "id": 1770371495189,
+    "name": "Qwen3-Coder-Next-FP8-单卡",
+    "config": {
+      "wslPath": "",
+      "condaEnv": "vllm",
+      "condaPath": "/mnt/AI-Acer4T/miniconda3",
+      "envType": "linux",
+      "cudaDevices": "0",
+      "tensorParallel": 1,
+      "pipelineParallelSize": 1,
+      "modelPath": "/mnt/AI-Acer4T/AI-Chat/models/Qwen3/Qwen3-Coder-Next-FP8",
+      "quantization": "",
+      "dtype": "auto",
+      "maxModelLen": "128000",
+      "host": "0.0.0.0",
+      "port": 8005,
+      "gpuMemoryUtilization": 0.9,
+      "maxNumSequences": 256,
+      "maxNumBatchedTokens": 8192,
+      "servedModelName": "VLLM-MODEL",
+      "chatTemplate": "",
+      "toolCallParser": "qwen3_coder",
+      "reasoningParser": "",
+      "trustRemoteCode": true,
+      "enableExpertParallel": false,
+      "enableAutoToolChoice": true,
+      "asyncScheduling": true,
+      "customParams": [
+        {
+          "name": "--kv-cache-dtype fp8",
+          "value": "",
+          "isFlag": false
+        }
+      ],
+      "quickParams": [
+        {
+          "name": "export CUDA_DEVICE_ORDER=PCI_BUS_ID",
+          "value": "",
+          "isFlag": true
+        }
+      ]
+    },
+    "envType": "linux",
+    "createdAt": "2026-02-07T11:49:36.140902"
+  },
+  {
+    "id": 1770371509561,
+    "name": "Qwen3-Coder-Next-FP8-TP2",
+    "config": {
+      "asyncScheduling": true,
+      "chatTemplate": "",
+      "condaEnv": "vllm",
+      "condaPath": "/mnt/AI-Acer4T/miniconda3",
+      "cudaDevices": "0,1",
+      "customParams": [
+        {
+          "isFlag": false,
+          "name": "--kv-cache-dtype fp8",
+          "value": ""
+        }
+      ],
+      "dtype": "auto",
+      "enableAutoToolChoice": true,
+      "enableExpertParallel": false,
+      "envType": "linux",
+      "gpuMemoryUtilization": 0.9,
+      "host": "0.0.0.0",
+      "maxModelLen": "128000",
+      "maxNumBatchedTokens": 8192,
+      "maxNumSequences": 256,
+      "modelPath": "/mnt/AI-Acer4T/AI-Chat/models/Qwen3/Qwen3-Coder-Next-FP8",
+      "pipelineParallelSize": 1,
+      "port": 8005,
+      "quantization": "",
+      "quickParams": [
+        {
+          "isFlag": true,
+          "name": "export NCCL_IB_DISABLE=0",
+          "value": ""
+        },
+        {
+          "isFlag": true,
+          "name": "export NCCL_NVLS_ENABLE=1",
+          "value": ""
+        },
+        {
+          "isFlag": true,
+          "name": "export NCCL_P2P_DISABLE=0",
+          "value": ""
+        },
+        {
+          "isFlag": true,
+          "name": "export NCCL_SHM_DISABLE=0",
+          "value": ""
+        },
+        {
+          "isFlag": true,
+          "name": "export SAFETENSORS_FAST_GPU=1",
+          "value": ""
+        },
+        {
+          "isFlag": true,
+          "name": "export CUDA_DEVICE_ORDER=PCI_BUS_ID",
+          "value": ""
+        },
+        {
+          "isFlag": true,
+          "name": "export CUDA_VISIBLE_DEVICES=0,1",
+          "value": ""
+        }
+      ],
+      "reasoningParser": "",
+      "servedModelName": "VLLM-MODEL",
+      "tensorParallel": 2,
+      "toolCallParser": "qwen3_coder",
+      "trustRemoteCode": true,
+      "wslPath": ""
+    },
+    "envType": "linux",
+    "createdAt": "2026-02-06T17:51:49.561413"
+  },
+  {
+    "id": 1771497452406,
+    "name": "Minimax-M2.5-BF16-INT4-AWQ-TP2",
+    "config": {
+      "wslPath": "",
+      "condaEnv": "vllm",
+      "condaPath": "/mnt/AI-Acer4T/miniconda3",
+      "envType": "linux",
+      "cudaDevices": "0,1",
+      "tensorParallel": 2,
+      "pipelineParallelSize": 1,
+      "modelPath": "/mnt/AI-Acer4T/AI-Chat/models/minimax/Minimax-M2.5-BF16-INT4-AWQ",
+      "quantization": "",
+      "dtype": "auto",
+      "maxModelLen": "128000",
+      "host": "0.0.0.0",
+      "port": 8005,
+      "gpuMemoryUtilization": 0.9,
+      "maxNumSequences": 256,
+      "maxNumBatchedTokens": 8192,
+      "servedModelName": "VLLM-MODEL",
+      "chatTemplate": "/mnt/AI-Acer4T/AI-Chat/models/minimax/Minimax-M2.5-BF16-INT4-AWQ/chat_template.jinja",
+      "toolCallParser": "minimax_m2",
+      "reasoningParser": "minimax_m2_append_think",
+      "trustRemoteCode": true,
+      "enableExpertParallel": true,
+      "enableAutoToolChoice": true,
+      "asyncScheduling": true,
+      "customParams": [
+        {
+          "name": "--kv-cache-dtype fp8",
+          "value": "",
+          "isFlag": false
+        },
+        {
+          "name": "--enable-chunked-prefill",
+          "value": "",
+          "isFlag": false
+        },
+        {
+          "name": "--all2all-backend pplx",
+          "value": "",
+          "isFlag": false
+        }
+      ],
+      "quickParams": [
+        {
+          "name": "export CUDA_DEVICE_ORDER=PCI_BUS_ID",
+          "value": "",
+          "isFlag": true
+        }
+      ]
+    },
+    "envType": "linux",
+    "createdAt": "2026-02-19T18:44:42.578963"
+  },
+  {
+    "id": 1771497980302,
+    "name": "MiniMax-M2.5-AWQ-TP2",
+    "config": {
+      "wslPath": "",
+      "condaEnv": "vllm",
+      "condaPath": "/mnt/AI-Acer4T/miniconda3",
+      "envType": "linux",
+      "cudaDevices": "0,1",
+      "tensorParallel": 2,
+      "pipelineParallelSize": 1,
+      "modelPath": "/mnt/AI-Acer4T/AI-Chat/models/minimax/MiniMax-M2.5-AWQ",
+      "quantization": "",
+      "dtype": "auto",
+      "maxModelLen": "128000",
+      "host": "0.0.0.0",
+      "port": 8005,
+      "gpuMemoryUtilization": 0.9,
+      "maxNumSequences": 256,
+      "maxNumBatchedTokens": 8192,
+      "servedModelName": "VLLM-MODEL",
+      "chatTemplate": "/mnt/AI-Acer4T/AI-Chat/models/minimax/MiniMax-M2.5-AWQ/chat_template.jinja",
+      "toolCallParser": "minimax_m2",
+      "reasoningParser": "minimax_m2_append_think",
+      "trustRemoteCode": true,
+      "enableExpertParallel": true,
+      "enableAutoToolChoice": true,
+      "asyncScheduling": true,
+      "customParams": [
+        {
+          "name": "--kv-cache-dtype fp8",
+          "value": "",
+          "isFlag": false
+        },
+        {
+          "name": "--enable-chunked-prefill",
+          "value": "",
+          "isFlag": false
+        },
+        {
+          "name": "--all2all-backend pplx",
+          "value": "",
+          "isFlag": false
+        }
+      ],
+      "quickParams": [
+        {
+          "name": "export CUDA_DEVICE_ORDER=PCI_BUS_ID",
+          "value": "",
+          "isFlag": true
+        }
+      ]
+    },
+    "envType": "linux",
+    "createdAt": "2026-02-19T18:46:20.302636"
+  },
+  {
+    "id": 1771498392227,
+    "name": "MiniMax-M2.5-NVFP4-TP2",
+    "config": {
+      "wslPath": "",
+      "condaEnv": "vllm-nightly",
+      "condaPath": "/mnt/AI-Acer4T/miniconda3",
+      "envType": "linux",
+      "cudaDevices": "0,1",
+      "tensorParallel": 2,
+      "pipelineParallelSize": 1,
+      "modelPath": "/mnt/AI-Acer4T/AI-Chat/models/minimax/MiniMax-M2.5-NVFP4/",
+      "quantization": "nvfp4",
+      "dtype": "auto",
+      "maxModelLen": "128000",
+      "host": "0.0.0.0",
+      "port": 8005,
+      "gpuMemoryUtilization": 0.9,
+      "maxNumSequences": 256,
+      "maxNumBatchedTokens": 8192,
+      "servedModelName": "VLLM-MODEL",
+      "chatTemplate": "/mnt/AI-Acer4T/AI-Chat/models/minimax/MiniMax-M2.5-NVFP4/chat_template.jinja",
+      "toolCallParser": "minimax_m2",
+      "reasoningParser": "minimax_m2_append_think",
+      "trustRemoteCode": true,
+      "enableExpertParallel": true,
+      "enableAutoToolChoice": true,
+      "asyncScheduling": true,
+      "customParams": [
+        {
+          "name": "--kv-cache-dtype fp8",
+          "value": "",
+          "isFlag": false
+        },
+        {
+          "name": "--compilation_config.cudagraph_mode=PIECEWISE",
+          "value": "",
+          "isFlag": false
+        },
+        {
+          "name": "--enable-chunked-prefill",
+          "value": "",
+          "isFlag": false
+        },
+        {
+          "name": "--enforce-eager",
+          "value": "",
+          "isFlag": false
+        },
+        {
+          "name": "--all2all-backend pplx",
+          "value": "",
+          "isFlag": false
+        }
+      ],
+      "quickParams": [
+        {
+          "name": "export CUDA_DEVICE_ORDER=PCI_BUS_ID",
+          "value": "",
+          "isFlag": true
+        }
+      ]
+    },
+    "envType": "linux",
+    "createdAt": "2026-02-19T23:34:43.428464"
   }
 ]
